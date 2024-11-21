@@ -8,7 +8,7 @@ public class Box {
     private double size;
     private double velocity;
     private double acceleration;
-    private Rectangle view;
+    private final Rectangle view;
 
     public Box(double x, double size, double velocity, double acceleration, Rectangle view) {
         this.x = x;
@@ -55,10 +55,10 @@ public class Box {
         return x;
     }
 
-    public void move(long delta){
+    public void move(double seconds){
         //из нано в секунды
-        double seconds = delta/1000000000.0;
-        velocity = velocity + acceleration*seconds;
+
+        velocity += acceleration*seconds;
         x += velocity*seconds;
         view.setX(x);
     }

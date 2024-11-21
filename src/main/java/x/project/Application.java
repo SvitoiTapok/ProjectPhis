@@ -1,17 +1,14 @@
 package x.project;
 
 import javafx.animation.AnimationTimer;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.security.Timestamp;
-import java.time.Instant;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Application extends javafx.application.Application {
@@ -27,6 +24,9 @@ public class Application extends javafx.application.Application {
         Rectangle view1 = new Rectangle();
         Rectangle view2 = new Rectangle();
         Rectangle view3 = new Rectangle();
+        view1.setFill(Color.color(1.0,0,0));
+        view2.setFill(Color.color(0,1.0,0));
+        view3.setFill(Color.color(1.0,0,1.0));
         Box box1 = new Box(200, 100, 200, -20, view1);
         Box box2 = new Box(600, 100, 0, 0, view2);
         Box box3 = new Box(1000, 100, 0, 0, view3);
@@ -38,18 +38,18 @@ public class Application extends javafx.application.Application {
         ArrayList<Box> boxes = new ArrayList<>();
         boxes.add(box1); boxes.add(box2); boxes.add(box3);
 
-        System system = new System(boxes);
+        Physics physics = new Physics(boxes);
 
 
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 if(lastTime==0){
-                    system.doFrame(0);
+                    physics.doFrame(0);
                     lastTime = now;
                     return;
                 }
-                system.doFrame(now-lastTime);
+                physics.doFrame((now-lastTime)/1.0e9);
                 lastTime = now;
             }
         };
