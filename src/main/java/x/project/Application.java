@@ -1,7 +1,7 @@
 package x.project;
 
-import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Application extends javafx.application.Application {
-    private long lastTime = 0;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -21,6 +20,7 @@ public class Application extends javafx.application.Application {
         BorderPane borderPane = new BorderPane();
         Pane pane = new Pane();
         Scene scene = new Scene(borderPane, 1540, 1000);
+        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
         borderPane.setCenter(pane);
 
         Rectangle view1 = new Rectangle();
@@ -54,21 +54,38 @@ public class Application extends javafx.application.Application {
         boxes.add(box3);
 
         Physics physics = new Physics(boxes);
+        BreakTimer animationTimer = new BreakTimer(physics);
+        ShowDescription showDescriptionBox1 = new ShowDescription(pane, box1);
+        ShowDescription showDescriptionBox2 = new ShowDescription(pane, box2);
+        ShowDescription showDescriptionBox3 = new ShowDescription(pane, box3);
 
+        Pane bottomPane = new Pane();
+        borderPane.setBottom(bottomPane);
+        bottomPane.setPrefHeight(120);
 
-        AnimationTimer animationTimer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                if (lastTime == 0) {
-                    physics.doFrame(0);
-                    lastTime = now;
-                    return;
-                }
-                physics.doFrame((now - lastTime) / 1.0e9);
-                lastTime = now;
-            }
-        };
-        animationTimer.start();
+        Button breakButton = new Button("break");
+        breakButton.setPrefWidth(300);
+        breakButton.setPrefHeight(100);
+        breakButton.setLayoutX(30);
+        breakButton.setOnAction(event -> {
+            animationTimer.setStop(true);
+            showDescriptionBox1.showAll();
+            showDescriptionBox2.showAll();
+            showDescriptionBox3.showAll();
+        });
+
+        Button continueButton = new Button("continue");
+        continueButton.setPrefWidth(300);
+        continueButton.setPrefHeight(100);
+        continueButton.setLayoutX(360);
+        continueButton.setOnAction(event -> {
+            animationTimer.setStop(false);
+            showDescriptionBox1.hideAll();
+            showDescriptionBox2.hideAll();
+            showDescriptionBox3.hideAll();
+        });
+
+        bottomPane.getChildren().addAll(breakButton, continueButton);
 
         stage.setTitle("Project");
         stage.setWidth(1280);
@@ -77,6 +94,7 @@ public class Application extends javafx.application.Application {
         stage.getIcons().add(new Image("/images/spring.png"));
         stage.setScene(scene);
         stage.show();
+        animationTimer.start();
     }
 
     public static void main(String[] args) {
