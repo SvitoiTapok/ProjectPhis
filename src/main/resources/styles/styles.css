@@ -1,0 +1,11 @@
+.button{
+    -fx-background-color: #4681f4;
+    -fx-text-fill: white;
+    -fx-font-size: 40px;
+    -fx-font-family: sans-serif;
+    -fx-font-weight: bold;
+}
+
+.button:pressed {
+    -fx-background-color: #1861f2;
+}
