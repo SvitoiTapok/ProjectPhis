@@ -13,6 +13,7 @@ public class Physics {
     public void doFrame(double deltaTime){
         for(Box box: component){
             box.move(deltaTime);
+            //CameraMover.CAMERA_MOVER.moveBox(box);
         }
     }
 }

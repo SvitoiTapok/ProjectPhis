@@ -1,5 +1,6 @@
 package x.project;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -8,6 +9,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import x.project.handlers.PressHandler;
+import x.project.handlers.ReleaseHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +25,8 @@ public class Application extends javafx.application.Application {
         Scene scene = new Scene(borderPane, 1540, 1000);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
         borderPane.setCenter(pane);
+
+
 
         Rectangle view1 = new Rectangle();
         Rectangle view2 = new Rectangle();
@@ -58,6 +63,14 @@ public class Application extends javafx.application.Application {
         ShowDescription showDescriptionBox1 = new ShowDescription(pane, box1);
         ShowDescription showDescriptionBox2 = new ShowDescription(pane, box2);
         ShowDescription showDescriptionBox3 = new ShowDescription(pane, box3);
+
+        //организация движения камеры
+        borderPane.requestFocus();
+        CameraMover cameraMover = CameraMover.CAMERA_MOVER;
+        borderPane.setOnKeyPressed(new PressHandler(cameraMover));
+        borderPane.setOnKeyReleased(new ReleaseHandler(cameraMover));
+        AnimationTimer ViewTimer= new ViewTimer(boxes);
+        ViewTimer.start();
 
         Pane bottomPane = new Pane();
         borderPane.setBottom(bottomPane);
