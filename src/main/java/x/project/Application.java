@@ -27,7 +27,6 @@ public class Application extends javafx.application.Application {
         borderPane.setCenter(pane);
 
 
-
         Rectangle view1 = new Rectangle();
         Rectangle view2 = new Rectangle();
         Rectangle view3 = new Rectangle();
@@ -59,18 +58,23 @@ public class Application extends javafx.application.Application {
         boxes.add(box3);
 
         Physics physics = new Physics(boxes);
-        BreakTimer animationTimer = new BreakTimer(physics);
+        BreakTimer breakTimer = new BreakTimer(physics);
         ShowDescription showDescriptionBox1 = new ShowDescription(pane, box1);
         ShowDescription showDescriptionBox2 = new ShowDescription(pane, box2);
         ShowDescription showDescriptionBox3 = new ShowDescription(pane, box3);
+
+        ArrayList<ShowDescription> showDescriptions = new ArrayList<>();
+        showDescriptions.add(showDescriptionBox1);
+        showDescriptions.add(showDescriptionBox2);
+        showDescriptions.add(showDescriptionBox3);
 
         //организация движения камеры
         borderPane.requestFocus();
         CameraMover cameraMover = CameraMover.CAMERA_MOVER;
         borderPane.setOnKeyPressed(new PressHandler(cameraMover));
         borderPane.setOnKeyReleased(new ReleaseHandler(cameraMover));
-        AnimationTimer ViewTimer= new ViewTimer(boxes);
-        ViewTimer.start();
+        AnimationTimer viewTimer = new ViewTimer(boxes, showDescriptions, breakTimer);
+        viewTimer.start();
 
         Pane bottomPane = new Pane();
         borderPane.setBottom(bottomPane);
@@ -81,10 +85,7 @@ public class Application extends javafx.application.Application {
         breakButton.setPrefHeight(100);
         breakButton.setLayoutX(30);
         breakButton.setOnAction(event -> {
-            animationTimer.setStop(true);
-            showDescriptionBox1.showAll();
-            showDescriptionBox2.showAll();
-            showDescriptionBox3.showAll();
+            breakTimer.setStop(true);
         });
 
         Button continueButton = new Button("continue");
@@ -92,10 +93,10 @@ public class Application extends javafx.application.Application {
         continueButton.setPrefHeight(100);
         continueButton.setLayoutX(360);
         continueButton.setOnAction(event -> {
-            animationTimer.setStop(false);
-            showDescriptionBox1.hideAll();
-            showDescriptionBox2.hideAll();
-            showDescriptionBox3.hideAll();
+            breakTimer.setStop(false);
+            for (ShowDescription showDescription : showDescriptions) {
+                showDescription.hideAll();
+            }
         });
 
         bottomPane.getChildren().addAll(breakButton, continueButton);
@@ -107,7 +108,7 @@ public class Application extends javafx.application.Application {
         stage.getIcons().add(new Image("/images/spring.png"));
         stage.setScene(scene);
         stage.show();
-        animationTimer.start();
+        breakTimer.start();
     }
 
     public static void main(String[] args) {

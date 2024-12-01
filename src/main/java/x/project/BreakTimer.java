@@ -22,6 +22,7 @@ public class BreakTimer extends AnimationTimer {
             physics.doFrame((now - lastTime) / 1.0e9);
         }
         lastTime = now;
+        physics.doFrame(0);
     }
 
     public boolean isStop() {
