@@ -17,13 +17,16 @@ import java.util.ArrayList;
 
 public class Application extends javafx.application.Application {
 
+    private String getResourcePath(String path) {
+        return Objects.requireNonNull(getClass().getResource(path)).toExternalForm();
+    }
+
     @Override
-    public void start(Stage stage) throws IOException {
-        //FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("hello-view.fxml"));
+    public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
         Pane pane = new Pane();
         Scene scene = new Scene(borderPane, 1540, 1000);
-        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
+        scene.getStylesheets().add(getResourcePath("/styles/styles.css"));
         borderPane.setCenter(pane);
 
 
@@ -35,9 +38,9 @@ public class Application extends javafx.application.Application {
         Box box2 = new Box(600, 100, 0, 0, view2);
         Box box3 = new Box(1000, 100, 0, 0, view3);
 
-        view1.setFill(new ImagePattern(new Image(getClass().getResource("/images/square_red.png").toExternalForm())));
-        view2.setFill(new ImagePattern(new Image(getClass().getResource("/images/square_green.png").toExternalForm())));
-        view3.setFill(new ImagePattern(new Image(getClass().getResource("/images/square_purple.png").toExternalForm())));
+        view1.setFill(new ImagePattern(new Image(getResourcePath("/images/square_red.png"))));
+        view2.setFill(new ImagePattern(new Image(getResourcePath("/images/square_green.png"))));
+        view3.setFill(new ImagePattern(new Image(getResourcePath("/images/square_purple.png"))));
 
         Rectangle background = new Rectangle(0, 0, scene.getWidth(), scene.getHeight());
 
@@ -105,7 +108,7 @@ public class Application extends javafx.application.Application {
         stage.setWidth(1280);
         stage.setHeight(768);
         stage.setMaximized(true);
-        stage.getIcons().add(new Image("/images/spring.png"));
+        stage.getIcons().add(new Image(getResourcePath("/images/spring.png")));
         stage.setScene(scene);
         stage.show();
         breakTimer.start();
