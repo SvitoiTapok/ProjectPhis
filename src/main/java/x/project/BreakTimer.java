@@ -15,14 +15,12 @@ public class BreakTimer extends AnimationTimer {
     public void handle(long now) {
         if (!stop) {
             if (lastTime == 0) {
-                physics.doFrame(0);
                 lastTime = now;
                 return;
             }
             physics.doFrame((now - lastTime) / 1.0e9);
         }
         lastTime = now;
-        physics.doFrame(0);
     }
 
     public boolean isStop() {
