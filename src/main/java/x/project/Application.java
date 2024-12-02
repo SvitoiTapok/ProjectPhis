@@ -35,9 +35,9 @@ public class Application extends javafx.application.Application {
         Box box2 = new Box(600, 100, 0, 0, view2);
         Box box3 = new Box(1000, 100, 0, 0, view3);
 
-        view1.setFill(new ImagePattern(new Image("images/square_red.png")));
-        view2.setFill(new ImagePattern(new Image("images/square_green.png")));
-        view3.setFill(new ImagePattern(new Image("images/square_purple.png")));
+        view1.setFill(new ImagePattern(new Image(getClass().getResource("/images/square_red.png").toExternalForm())));
+        view2.setFill(new ImagePattern(new Image(getClass().getResource("/images/square_green.png").toExternalForm())));
+        view3.setFill(new ImagePattern(new Image(getClass().getResource("/images/square_purple.png").toExternalForm())));
 
         Rectangle background = new Rectangle(0, 0, scene.getWidth(), scene.getHeight());
 
