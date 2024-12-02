@@ -1,9 +1,10 @@
 package x.project;
 
 public class Physics {
-    private static final double MU = 0.2;
+    private static final double MU = 0.03;
     private static final double SPRING_K = 400;
     private static final double SCALE_FACTOR = 50.0;
+    private static final double GRAVITY = 10.0;
 
     private final Box firstBox;
     private final Box secondBox;
@@ -21,7 +22,8 @@ public class Physics {
 
     public void doFrame(double deltaTime) {
         detectBoxesCollision();
-        addSpringForce();
+        addSpringForce(deltaTime);
+        addFrictionForce(deltaTime);
 
         if (areBoxesJoined) {
             firstBox.setAcceleration(secondBox.getAcceleration());
@@ -33,7 +35,7 @@ public class Physics {
         thirdBox.move(deltaTime, SCALE_FACTOR);
     }
 
-    private void addSpringForce() {
+    private void addSpringForce(double deltaTime) {
         if (!areBoxesJoined) {
             return;
         }
@@ -41,11 +43,25 @@ public class Physics {
         double springDeformation = getSpringDeformation();
         double springForce = springDeformation * SPRING_K;
 
-        secondBox.setAcceleration(0.0);
-        thirdBox.setAcceleration(0.0);
+        secondBox.addImpulse(-springForce * deltaTime);
+        thirdBox.addImpulse(springForce * deltaTime);
+    }
 
-        secondBox.addHorizontalForce(-springForce);
-        thirdBox.addHorizontalForce(springForce);
+    private void addFrictionForce(double deltaTime) {
+        addFrictionForceForTheBox(firstBox, deltaTime);
+        addFrictionForceForTheBox(secondBox, deltaTime);
+        addFrictionForceForTheBox(thirdBox, deltaTime);
+    }
+
+    private void addFrictionForceForTheBox(Box box, double deltaTime) {
+        double frictionForce = MU * GRAVITY * box.getMass();
+        double maxFrictionImpulse = frictionForce * deltaTime;
+
+        double boxImpulse = box.getImpulse();
+        double realFrictionImpulseChange = Math.min(Math.abs(maxFrictionImpulse), Math.abs(boxImpulse));
+        double frictionImpulse = boxImpulse > 0 ? -realFrictionImpulseChange : realFrictionImpulseChange;
+
+        box.addImpulse(frictionImpulse);
     }
 
     private void detectBoxesCollision() {
@@ -61,9 +77,9 @@ public class Physics {
 
         areBoxesJoined = true;
 
-        secondBox.setVelocity((
-                firstBox.getImpulse() + secondBox.getImpulse())
-                / (secondBox.getMass() + firstBox.getMass())
+        secondBox.setVelocity(
+                (firstBox.getImpulse() + secondBox.getImpulse())
+                        / (secondBox.getMass() + firstBox.getMass())
         );
 
         secondBox.setMass(secondBox.getMass() + firstBox.getMass());

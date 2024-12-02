@@ -33,9 +33,9 @@ public class Application extends javafx.application.Application {
         Rectangle view2 = new Rectangle();
         Rectangle view3 = new Rectangle();
 
-        Box box1 = new Box(200, 100, 1.0, 5, 0, view1);
-        Box box2 = new Box(600, 100, 1.0, 0, 0, view2);
-        Box box3 = new Box(1000, 100, 2.0, 0, 0, view3);
+        Box box1 = new Box(200, 100, 8.0, 5, 0, view1);
+        Box box2 = new Box(600, 100, 8.0, 0, 0, view2);
+        Box box3 = new Box(1000, 100, 16.0, 0, 0, view3);
 
         view1.setFill(new ImagePattern(new Image(getResourcePath("/images/square_red.png"))));
         view2.setFill(new ImagePattern(new Image(getResourcePath("/images/square_green.png"))));
@@ -109,6 +109,7 @@ public class Application extends javafx.application.Application {
         stage.setScene(scene);
         stage.show();
         breakTimer.start();
+        breakTimer.setStop(true);
     }
 
     public static void main(String[] args) {

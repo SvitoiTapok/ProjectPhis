@@ -9,6 +9,7 @@ public class Box {
     private double acceleration;
     private double mass;
     private final Rectangle view;
+    private double previousVelocity;
 
     public Box(double x, double size, double mass, double velocity, double acceleration, Rectangle view) {
         this.x = x;
@@ -16,6 +17,7 @@ public class Box {
         this.velocity = velocity;
         this.acceleration = acceleration;
         this.mass = mass;
+        this.previousVelocity = velocity;
 
         view.setX(getX());
         view.setWidth(getWidth());
@@ -64,8 +66,8 @@ public class Box {
         return x;
     }
 
-    public void addHorizontalForce(double force) {
-        acceleration += force / getMass();
+    public void addImpulse(double impulse) {
+        velocity += impulse / getMass();
     }
 
     public double getImpulse() {
@@ -73,7 +75,11 @@ public class Box {
     }
 
     public void move(double seconds, double sceneScaleFactor) {
-        velocity += acceleration * seconds;
+        if (seconds > 0) {
+            acceleration = (velocity - previousVelocity) / seconds;
+            previousVelocity = velocity;
+        }
+
         x += velocity * seconds * sceneScaleFactor;
         view.setX(x);
     }
