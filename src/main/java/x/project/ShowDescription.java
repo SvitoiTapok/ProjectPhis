@@ -34,7 +34,7 @@ public class ShowDescription {
 
     private void showAcceleration() {
         double acceleration = box.getAcceleration();
-        double size = box.getSize();
+        double size = box.getWidth();
         double startX = box.getX() + size / 2;
         double startY = 400 + size / 2;
         textAcceleration = new Text(startX - size / 2, startY - size * 1.2, "a = " + new DecimalFormat("#0.00").format(acceleration) + " м/с^2");
@@ -44,7 +44,7 @@ public class ShowDescription {
 
     private void showVelocity() {
         double velocity = box.getVelocity();
-        double size = box.getSize();
+        double size = box.getWidth();
         double startX = box.getX() + size / 2;
         double startY = 400 + size / 2;
         if (velocity == 0) {

@@ -4,7 +4,7 @@ import javafx.scene.shape.Rectangle;
 
 public class Box {
     private double x;
-    private double size;
+    private double width;
     private double velocity;
     private double acceleration;
     private double mass;
@@ -12,14 +12,14 @@ public class Box {
 
     public Box(double x, double size, double mass, double velocity, double acceleration, Rectangle view) {
         this.x = x;
-        this.size = size;
+        this.width = size;
         this.velocity = velocity;
         this.acceleration = acceleration;
         this.mass = mass;
 
         view.setX(getX());
-        view.setWidth(getSize());
-        view.setHeight(getSize());
+        view.setWidth(getWidth());
+        view.setHeight(getWidth());
         view.setY(400);
         this.view = view;
     }
@@ -28,8 +28,8 @@ public class Box {
         this.acceleration = acceleration;
     }
 
-    public void setSize(double size) {
-        this.size = size;
+    public void setWidth(double width) {
+        this.width = width;
     }
 
     public void setVelocity(double velocity) {
@@ -52,8 +52,8 @@ public class Box {
         return acceleration;
     }
 
-    public double getSize() {
-        return size;
+    public double getWidth() {
+        return width;
     }
 
     public double getVelocity() {

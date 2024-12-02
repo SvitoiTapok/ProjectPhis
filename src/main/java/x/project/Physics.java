@@ -16,7 +16,7 @@ public class Physics {
         this.secondBox = secondBox;
         this.thirdBox = thirdBox;
 
-        defaultSpringLength = thirdBox.getX() - (secondBox.getX() + secondBox.getSize());
+        defaultSpringLength = thirdBox.getX() - (secondBox.getX() + secondBox.getWidth());
     }
 
     public void doFrame(double deltaTime) {
@@ -53,7 +53,7 @@ public class Physics {
             return;
         }
 
-        double firstBoxRightCorner = firstBox.getX() + firstBox.getSize();
+        double firstBoxRightCorner = firstBox.getX() + firstBox.getWidth();
 
         if (firstBoxRightCorner < secondBox.getX()) {
             return;
@@ -73,7 +73,7 @@ public class Physics {
     }
 
     private double getSpringDeformation() {
-        double currentSpringLength = thirdBox.getX() - (secondBox.getX() + secondBox.getSize());
+        double currentSpringLength = thirdBox.getX() - (secondBox.getX() + secondBox.getWidth());
         return (defaultSpringLength - currentSpringLength) / SCALE_FACTOR;
     }
 }

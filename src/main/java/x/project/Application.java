@@ -43,7 +43,7 @@ public class Application extends javafx.application.Application {
 
         Rectangle background = new Rectangle(0, 0, scene.getWidth(), scene.getHeight());
 
-        Rectangle tableSurface = new Rectangle(0, 400 + box1.getSize(), scene.getWidth(), 100);
+        Rectangle tableSurface = new Rectangle(0, 400 + box1.getWidth(), scene.getWidth(), 100);
         Rectangle tableBottom = new Rectangle(0, tableSurface.getY() + tableSurface.getHeight(), scene.getWidth(), scene.getHeight());
 
         background.setFill(Color.rgb(166, 239, 255, 0.8));
