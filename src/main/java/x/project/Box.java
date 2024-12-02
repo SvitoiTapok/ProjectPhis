@@ -1,6 +1,5 @@
 package x.project;
 
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
 public class Box {
@@ -8,21 +7,23 @@ public class Box {
     private double size;
     private double velocity;
     private double acceleration;
+    private double mass;
     private final Rectangle view;
 
-    public Box(double x, double size, double velocity, double acceleration, Rectangle view) {
+    public Box(double x, double size, double mass, double velocity, double acceleration, Rectangle view) {
         this.x = x;
         this.size = size;
         this.velocity = velocity;
         this.acceleration = acceleration;
+        this.mass = mass;
 
         view.setX(getX());
         view.setWidth(getSize());
         view.setHeight(getSize());
         view.setY(400);
         this.view = view;
-
     }
+
     public void setAcceleration(double acceleration) {
         this.acceleration = acceleration;
     }
@@ -37,6 +38,14 @@ public class Box {
 
     public void setX(double x) {
         this.x = x;
+    }
+
+    public void setMass(double mass) {
+        this.mass = mass;
+    }
+
+    public double getMass() {
+        return mass;
     }
 
     public double getAcceleration() {
@@ -55,11 +64,17 @@ public class Box {
         return x;
     }
 
-    public void move(double seconds){
-        //из нано в секунды
+    public void addHorizontalForce(double force) {
+        acceleration += force / getMass();
+    }
 
-        velocity += acceleration*seconds;
-        x += velocity*seconds;
+    public double getImpulse() {
+        return mass * velocity;
+    }
+
+    public void move(double seconds, double sceneScaleFactor) {
+        velocity += acceleration * seconds;
+        x += velocity * seconds * sceneScaleFactor;
         view.setX(x);
     }
 }

@@ -1,42 +1,79 @@
 package x.project;
 
-import java.util.List;
-
 public class Physics {
-    private final static double mu = 0.2;
-    private final static double k = 400;
+    private static final double MU = 0.2;
+    private static final double SPRING_K = 400;
+    private static final double SCALE_FACTOR = 50.0;
 
-    private final List<Box> component;
+    private final Box firstBox;
+    private final Box secondBox;
+    private final Box thirdBox;
     private boolean areBoxesJoined = false;
+    private final double defaultSpringLength;
 
-    public Physics(List<Box> component) {
-        this.component = component;
+    public Physics(Box firstBox, Box secondBox, Box thirdBox) {
+        this.firstBox = firstBox;
+        this.secondBox = secondBox;
+        this.thirdBox = thirdBox;
+
+        defaultSpringLength = thirdBox.getX() - (secondBox.getX() + secondBox.getSize());
     }
 
     public void doFrame(double deltaTime) {
-        Box firstBox = this.component.get(0);
-        Box secondBox = this.component.get(1);
-        Box thirdBox = this.component.get(2);
+        detectBoxesCollision();
+        addSpringForce();
 
-        detectBoxesCollision(firstBox, secondBox);
-
-        for (Box box : component) {
-            box.move(deltaTime);
-            //CameraMover.CAMERA_MOVER.moveBox(box);
+        if (areBoxesJoined) {
+            firstBox.setAcceleration(secondBox.getAcceleration());
+            firstBox.setVelocity(secondBox.getVelocity());
         }
+
+        firstBox.move(deltaTime, SCALE_FACTOR);
+        secondBox.move(deltaTime, SCALE_FACTOR);
+        thirdBox.move(deltaTime, SCALE_FACTOR);
     }
 
-    private void detectBoxesCollision(Box firstBox, Box secondBox) {
+    private void addSpringForce() {
+        if (!areBoxesJoined) {
+            return;
+        }
+
+        double springDeformation = getSpringDeformation();
+        double springForce = springDeformation * SPRING_K;
+
+        secondBox.setAcceleration(0.0);
+        thirdBox.setAcceleration(0.0);
+
+        secondBox.addHorizontalForce(-springForce);
+        thirdBox.addHorizontalForce(springForce);
+    }
+
+    private void detectBoxesCollision() {
         if (areBoxesJoined) {
             return;
         }
 
         double firstBoxRightCorner = firstBox.getX() + firstBox.getSize();
 
-        if (firstBoxRightCorner >= secondBox.getX()) {
-            areBoxesJoined = true;
-            firstBox.setVelocity(0.0);
-            firstBox.setAcceleration(0.0);
+        if (firstBoxRightCorner < secondBox.getX()) {
+            return;
         }
+
+        areBoxesJoined = true;
+
+        secondBox.setVelocity((
+                firstBox.getImpulse() + secondBox.getImpulse())
+                / (secondBox.getMass() + firstBox.getMass())
+        );
+
+        secondBox.setMass(secondBox.getMass() + firstBox.getMass());
+
+        firstBox.setVelocity(0.0);
+        firstBox.setAcceleration(0.0);
+    }
+
+    private double getSpringDeformation() {
+        double currentSpringLength = thirdBox.getX() - (secondBox.getX() + secondBox.getSize());
+        return (defaultSpringLength - currentSpringLength) / SCALE_FACTOR;
     }
 }

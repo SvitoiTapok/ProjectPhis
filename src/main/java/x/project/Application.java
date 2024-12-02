@@ -6,17 +6,17 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import x.project.handlers.PressHandler;
 import x.project.handlers.ReleaseHandler;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Application extends javafx.application.Application {
-
     private String getResourcePath(String path) {
         return Objects.requireNonNull(getClass().getResource(path)).toExternalForm();
     }
@@ -29,14 +29,13 @@ public class Application extends javafx.application.Application {
         scene.getStylesheets().add(getResourcePath("/styles/styles.css"));
         borderPane.setCenter(pane);
 
-
         Rectangle view1 = new Rectangle();
         Rectangle view2 = new Rectangle();
         Rectangle view3 = new Rectangle();
 
-        Box box1 = new Box(200, 100, 200, -20, view1);
-        Box box2 = new Box(600, 100, 0, 0, view2);
-        Box box3 = new Box(1000, 100, 0, 0, view3);
+        Box box1 = new Box(200, 100, 1.0, 5, 0, view1);
+        Box box2 = new Box(600, 100, 1.0, 0, 0, view2);
+        Box box3 = new Box(1000, 100, 2.0, 0, 0, view3);
 
         view1.setFill(new ImagePattern(new Image(getResourcePath("/images/square_red.png"))));
         view2.setFill(new ImagePattern(new Image(getResourcePath("/images/square_green.png"))));
@@ -60,7 +59,7 @@ public class Application extends javafx.application.Application {
         boxes.add(box2);
         boxes.add(box3);
 
-        Physics physics = new Physics(boxes);
+        Physics physics = new Physics(box1, box2, box3);
         BreakTimer breakTimer = new BreakTimer(physics);
         ShowDescription showDescriptionBox1 = new ShowDescription(pane, box1);
         ShowDescription showDescriptionBox2 = new ShowDescription(pane, box2);
@@ -87,9 +86,7 @@ public class Application extends javafx.application.Application {
         breakButton.setPrefWidth(300);
         breakButton.setPrefHeight(100);
         breakButton.setLayoutX(30);
-        breakButton.setOnAction(event -> {
-            breakTimer.setStop(true);
-        });
+        breakButton.setOnAction(event -> breakTimer.setStop(true));
 
         Button continueButton = new Button("continue");
         continueButton.setPrefWidth(300);
