@@ -5,9 +5,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.text.DecimalFormat;
 
+@Getter
+@Setter
 public class ShowDescription {
     private final Box box;
     private final Pane pane;
@@ -17,7 +21,7 @@ public class ShowDescription {
     private Circle center;
     private Text textVelocity;
     private Text textAcceleration;
-    private boolean isShowing;
+    private boolean showing;
 
     public ShowDescription(Pane pane, Box box) {
         this.pane = pane;
@@ -25,8 +29,8 @@ public class ShowDescription {
     }
 
     public void showAll() {
-        if (!isShowing) {
-            isShowing = true;
+        if (!showing) {
+            showing = true;
             showVelocity();
             showAcceleration();
         }
@@ -70,7 +74,7 @@ public class ShowDescription {
     }
 
     public void hideAll() {
-        isShowing = false;
+        showing = false;
         hideVelocity();
         hideAcceleration();
     }
@@ -81,69 +85,5 @@ public class ShowDescription {
 
     private void hideVelocity() {
         pane.getChildren().removeAll(arrow, arrowTop, arrowBottom, textVelocity, center);
-    }
-
-    public Box getBox() {
-        return box;
-    }
-
-    public Pane getPane() {
-        return pane;
-    }
-
-    public Line getArrow() {
-        return arrow;
-    }
-
-    public void setArrow(Line arrow) {
-        this.arrow = arrow;
-    }
-
-    public Line getArrowTop() {
-        return arrowTop;
-    }
-
-    public void setArrowTop(Line arrowTop) {
-        this.arrowTop = arrowTop;
-    }
-
-    public Line getArrowBottom() {
-        return arrowBottom;
-    }
-
-    public void setArrowBottom(Line arrowBottom) {
-        this.arrowBottom = arrowBottom;
-    }
-
-    public Circle getCenter() {
-        return center;
-    }
-
-    public void setCenter(Circle center) {
-        this.center = center;
-    }
-
-    public Text getTextVelocity() {
-        return textVelocity;
-    }
-
-    public void setTextVelocity(Text textVelocity) {
-        this.textVelocity = textVelocity;
-    }
-
-    public Text getTextAcceleration() {
-        return textAcceleration;
-    }
-
-    public void setTextAcceleration(Text textAcceleration) {
-        this.textAcceleration = textAcceleration;
-    }
-
-    public boolean isShowing() {
-        return isShowing;
-    }
-
-    public void setShowing(boolean showing) {
-        isShowing = showing;
     }
 }

@@ -15,10 +15,10 @@ public class PressHandler implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent keyEvent) {
         if(keyEvent.getCode().equals(KeyCode.D)){
-            cameraMover.setDPressed(true);
+            cameraMover.setMovingLeft(true);
         }
         if(keyEvent.getCode().equals(KeyCode.A)){
-            cameraMover.setAPressed(true);
+            cameraMover.setMovingRight(true);
         }
     }
 }

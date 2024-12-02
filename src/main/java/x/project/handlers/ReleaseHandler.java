@@ -15,10 +15,10 @@ public class ReleaseHandler implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent keyEvent) {
         if(keyEvent.getCode().equals(KeyCode.D)){
-            cameraMover.setDPressed(false);
+            cameraMover.setMovingLeft(false);
         }
         if(keyEvent.getCode().equals(KeyCode.A)){
-            cameraMover.setAPressed(false);
+            cameraMover.setMovingRight(false);
         }
     }
 }

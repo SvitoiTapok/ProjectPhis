@@ -1,7 +1,11 @@
 package x.project;
 
 import javafx.scene.shape.Rectangle;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Box {
     private double x;
     private double width;
@@ -24,46 +28,6 @@ public class Box {
         view.setHeight(getWidth());
         view.setY(400);
         this.view = view;
-    }
-
-    public void setAcceleration(double acceleration) {
-        this.acceleration = acceleration;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public void setVelocity(double velocity) {
-        this.velocity = velocity;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public void setMass(double mass) {
-        this.mass = mass;
-    }
-
-    public double getMass() {
-        return mass;
-    }
-
-    public double getAcceleration() {
-        return acceleration;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public double getVelocity() {
-        return velocity;
-    }
-
-    public double getX() {
-        return x;
     }
 
     public void addImpulse(double impulse) {
