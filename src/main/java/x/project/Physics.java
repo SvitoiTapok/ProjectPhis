@@ -75,17 +75,17 @@ public class Physics {
             return;
         }
 
+        joinBoxes();
+    }
+
+    private void joinBoxes() {
         areBoxesJoined = true;
 
-        secondBox.setVelocity(
-                (firstBox.getImpulse() + secondBox.getImpulse())
-                        / (secondBox.getMass() + firstBox.getMass())
-        );
+        double impulse = firstBox.getImpulse() + secondBox.getImpulse();
+        double mass = firstBox.getMass() + secondBox.getMass();
 
-        secondBox.setMass(secondBox.getMass() + firstBox.getMass());
-
-        firstBox.setVelocity(0.0);
-        firstBox.setAcceleration(0.0);
+        secondBox.setVelocity(impulse / mass);
+        secondBox.setMass(mass);
     }
 
     private double getSpringDeformation() {

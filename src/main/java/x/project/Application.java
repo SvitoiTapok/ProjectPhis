@@ -14,6 +14,7 @@ import x.project.handlers.PressHandler;
 import x.project.handlers.ReleaseHandler;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Application extends javafx.application.Application {
@@ -35,7 +36,7 @@ public class Application extends javafx.application.Application {
 
         Box box1 = new Box(200, 100, 8.0, 5, 0, view1);
         Box box2 = new Box(600, 100, 8.0, 0, 0, view2);
-        Box box3 = new Box(1000, 100, 16.0, 0, 0, view3);
+        Box box3 = new Box(1000, 100, 10006.0, 0, 0, view3);
 
         view1.setFill(new ImagePattern(new Image(getResourcePath("/images/square_red.png"))));
         view2.setFill(new ImagePattern(new Image(getResourcePath("/images/square_green.png"))));
@@ -54,7 +55,7 @@ public class Application extends javafx.application.Application {
         pane.getChildren().addAll(tableSurface, tableBottom);
         pane.getChildren().addAll(view1, view2, view3);
 
-        ArrayList<Box> boxes = new ArrayList<>();
+        List<Box> boxes = new ArrayList<>();
         boxes.add(box1);
         boxes.add(box2);
         boxes.add(box3);
@@ -65,7 +66,7 @@ public class Application extends javafx.application.Application {
         ShowDescription showDescriptionBox2 = new ShowDescription(pane, box2);
         ShowDescription showDescriptionBox3 = new ShowDescription(pane, box3);
 
-        ArrayList<ShowDescription> showDescriptions = new ArrayList<>();
+        List<ShowDescription> showDescriptions = new ArrayList<>();
         showDescriptions.add(showDescriptionBox1);
         showDescriptions.add(showDescriptionBox2);
         showDescriptions.add(showDescriptionBox3);
@@ -115,5 +116,4 @@ public class Application extends javafx.application.Application {
     public static void main(String[] args) {
         launch();
     }
-
 }
