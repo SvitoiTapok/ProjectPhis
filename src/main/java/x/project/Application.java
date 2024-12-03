@@ -22,6 +22,24 @@ public class Application extends javafx.application.Application {
         return Objects.requireNonNull(getClass().getResource(path)).toExternalForm();
     }
 
+    private Box createFirstBox() {
+        Box newBox = new Box(200, 100, 8.0, 5, 0, new Rectangle());
+        newBox.getView().setFill(new ImagePattern(new Image(getResourcePath("/images/square_red.png"))));
+        return newBox;
+    }
+
+    private Box createSecondBox() {
+        Box newBox = new Box(600, 100, 8.0, 0, 0, new Rectangle());
+        newBox.getView().setFill(new ImagePattern(new Image(getResourcePath("/images/square_green.png"))));
+        return newBox;
+    }
+
+    private Box createThirdBox() {
+        Box newBox = new Box(1000, 100, 16.0, 0, 0, new Rectangle());
+        newBox.getView().setFill(new ImagePattern(new Image(getResourcePath("/images/square_purple.png"))));
+        return newBox;
+    }
+
     @Override
     public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
@@ -30,20 +48,11 @@ public class Application extends javafx.application.Application {
         scene.getStylesheets().add(getResourcePath("/styles/styles.css"));
         borderPane.setCenter(pane);
 
-        Rectangle view1 = new Rectangle();
-        Rectangle view2 = new Rectangle();
-        Rectangle view3 = new Rectangle();
-
-        Box box1 = new Box(200, 100, 8.0, 5, 0, view1);
-        Box box2 = new Box(600, 100, 8.0, 0, 0, view2);
-        Box box3 = new Box(1000, 100, 10006.0, 0, 0, view3);
-
-        view1.setFill(new ImagePattern(new Image(getResourcePath("/images/square_red.png"))));
-        view2.setFill(new ImagePattern(new Image(getResourcePath("/images/square_green.png"))));
-        view3.setFill(new ImagePattern(new Image(getResourcePath("/images/square_purple.png"))));
+        Box box1 = createFirstBox();
+        Box box2 = createSecondBox();
+        Box box3 = createThirdBox();
 
         Rectangle background = new Rectangle(0, 0, scene.getWidth(), scene.getHeight());
-
         Rectangle tableSurface = new Rectangle(0, 400 + box1.getWidth(), scene.getWidth(), 100);
         Rectangle tableBottom = new Rectangle(0, tableSurface.getY() + tableSurface.getHeight(), scene.getWidth(), scene.getHeight());
 
@@ -53,7 +62,7 @@ public class Application extends javafx.application.Application {
 
         pane.getChildren().add(background);
         pane.getChildren().addAll(tableSurface, tableBottom);
-        pane.getChildren().addAll(view1, view2, view3);
+        pane.getChildren().addAll(box1.getView(), box2.getView(), box3.getView());
 
         List<Box> boxes = new ArrayList<>();
         boxes.add(box1);
@@ -100,7 +109,36 @@ public class Application extends javafx.application.Application {
             }
         });
 
-        bottomPane.getChildren().addAll(breakButton, continueButton);
+        Button recreateButton = new Button("restart");
+        recreateButton.setPrefWidth(300);
+        recreateButton.setPrefHeight(100);
+        recreateButton.setLayoutX(690);
+        recreateButton.setOnAction(event -> {
+            Box box1New = createFirstBox();
+            Box box2New = createSecondBox();
+            Box box3New = createThirdBox();
+
+            box1.setX(box1New.getX());
+            box2.setX(box2New.getX());
+            box3.setX(box3New.getX());
+
+            box1.setVelocity(box1New.getVelocity());
+            box2.setVelocity(box2New.getVelocity());
+            box3.setVelocity(box3New.getVelocity());
+
+            box1.setAcceleration(box1New.getAcceleration());
+            box2.setAcceleration(box2New.getAcceleration());
+            box3.setAcceleration(box3New.getAcceleration());
+
+            box1.setMass(box1New.getMass());
+            box2.setMass(box2New.getMass());
+            box3.setMass(box3New.getMass());
+
+            physics.setAreBoxesJoined(false);
+            breakTimer.setStop(true);
+        });
+
+        bottomPane.getChildren().addAll(breakButton, continueButton, recreateButton);
 
         stage.setTitle("Project");
         stage.setWidth(1280);

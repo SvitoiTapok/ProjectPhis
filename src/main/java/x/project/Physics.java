@@ -1,5 +1,8 @@
 package x.project;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Physics {
     private static final double MU = 0.03;
     private static final double SPRING_K = 400;
@@ -9,7 +12,11 @@ public class Physics {
     private final Box firstBox;
     private final Box secondBox;
     private final Box thirdBox;
+
+    @Setter
+    @Getter
     private boolean areBoxesJoined = false;
+
     private final double defaultSpringLength;
 
     public Physics(Box firstBox, Box secondBox, Box thirdBox) {
