@@ -12,6 +12,7 @@ public class Physics {
     private final Box firstBox;
     private final Box secondBox;
     private final Box thirdBox;
+    private final Spring spring;
 
     @Setter
     @Getter
@@ -19,10 +20,11 @@ public class Physics {
 
     private final double defaultSpringLength;
 
-    public Physics(Box firstBox, Box secondBox, Box thirdBox) {
+    public Physics(Box firstBox, Box secondBox, Box thirdBox, Spring spring) {
         this.firstBox = firstBox;
         this.secondBox = secondBox;
         this.thirdBox = thirdBox;
+        this.spring = spring;
 
         defaultSpringLength = thirdBox.getX() - (secondBox.getX() + secondBox.getWidth());
     }
@@ -40,6 +42,7 @@ public class Physics {
         firstBox.move(deltaTime, SCALE_FACTOR);
         secondBox.move(deltaTime, SCALE_FACTOR);
         thirdBox.move(deltaTime, SCALE_FACTOR);
+        spring.move();
     }
 
     private void addSpringForce(double deltaTime) {

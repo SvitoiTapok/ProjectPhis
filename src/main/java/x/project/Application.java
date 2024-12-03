@@ -40,6 +40,12 @@ public class Application extends javafx.application.Application {
         return newBox;
     }
 
+    private Spring createSpring(Box leftBox, Box rightBox) {
+        Spring newSpring = new Spring(leftBox, rightBox, new Rectangle());
+        newSpring.getView().setFill(new ImagePattern(new Image(getResourcePath("/images/spring_horizontal.png"))));
+        return newSpring;
+    }
+
     @Override
     public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
@@ -51,6 +57,7 @@ public class Application extends javafx.application.Application {
         Box box1 = createFirstBox();
         Box box2 = createSecondBox();
         Box box3 = createThirdBox();
+        Spring spring = createSpring(box2, box3);
 
         Rectangle background = new Rectangle(0, 0, scene.getWidth(), scene.getHeight());
         Rectangle tableSurface = new Rectangle(0, 400 + box1.getWidth(), scene.getWidth(), 100);
@@ -63,13 +70,14 @@ public class Application extends javafx.application.Application {
         pane.getChildren().add(background);
         pane.getChildren().addAll(tableSurface, tableBottom);
         pane.getChildren().addAll(box1.getView(), box2.getView(), box3.getView());
+        pane.getChildren().addAll(spring.getView());
 
         List<Box> boxes = new ArrayList<>();
         boxes.add(box1);
         boxes.add(box2);
         boxes.add(box3);
 
-        Physics physics = new Physics(box1, box2, box3);
+        Physics physics = new Physics(box1, box2, box3, spring);
         BreakTimer breakTimer = new BreakTimer(physics);
         ShowDescription showDescriptionBox1 = new ShowDescription(pane, box1);
         ShowDescription showDescriptionBox2 = new ShowDescription(pane, box2);
