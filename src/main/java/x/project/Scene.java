@@ -141,11 +141,12 @@ public class Scene {
         totalEnergyLoss += energyBefore - secondBox.getKineticEnergy();
     }
 
-    private double getSpringDeformation() {
-        return (defaultSpringLength - getSpringLength()) / SCALE_FACTOR;
+    public double getSpringDeformation() {
+        return defaultSpringLength - getSpringLength();
     }
 
-    private double getSpringLength() {
-        return thirdBox.getX() - (secondBox.getX() + secondBox.getWidth());
+    public double getSpringLength() {
+        double secondBoxRightBorder = secondBox.getX() + secondBox.getWidth();
+        return (thirdBox.getX() - secondBoxRightBorder) / SCALE_FACTOR;
     }
 }
