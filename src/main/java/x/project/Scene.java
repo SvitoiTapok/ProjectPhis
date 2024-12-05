@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Scene {
-    private static final double MU = 0.04;
-    private static final double SPRING_K = 400;
     private static final double SCALE_FACTOR = 50.0;
     private static final double GRAVITY = 10.0;
 
@@ -24,6 +22,14 @@ public class Scene {
 
     @Getter
     private double startEnergy = 0;
+
+    @Getter
+    @Setter
+    private double frictionCoefficient = 0.04;
+
+    @Getter
+    @Setter
+    private double sprintConstant = 400;
 
     public Scene(Box firstBox, Box secondBox, Box thirdBox, Spring spring) {
         this.firstBox = firstBox;
@@ -64,7 +70,7 @@ public class Scene {
 
     public double getTotalPotentialEnergy() {
         double deformation = getSpringDeformation();
-        return 0.5 * SPRING_K * deformation * deformation;
+        return 0.5 * sprintConstant * deformation * deformation;
     }
 
     public double getTotalEnergy() {
@@ -77,7 +83,7 @@ public class Scene {
         }
 
         double springDeformation = getSpringDeformation();
-        double springForce = springDeformation * SPRING_K;
+        double springForce = springDeformation * sprintConstant;
 
         secondBox.addImpulse(-springForce * deltaTime);
         thirdBox.addImpulse(springForce * deltaTime);
@@ -96,7 +102,7 @@ public class Scene {
             return;
         }
 
-        double frictionForce = MU * GRAVITY * boxMass;
+        double frictionForce = frictionCoefficient * GRAVITY * boxMass;
         double maxFrictionImpulse = frictionForce * deltaTime;
 
         double boxImpulse = box.getImpulse();
