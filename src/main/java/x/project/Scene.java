@@ -60,8 +60,6 @@ public class Scene {
         secondBox.move(deltaTime, SCALE_FACTOR);
         thirdBox.move(deltaTime, SCALE_FACTOR);
         spring.move();
-
-        System.out.println((startEnergy - getTotalEnergy() - getTotalEnergyLoss()));
     }
 
     public double getTotalKineticEnergy() {
