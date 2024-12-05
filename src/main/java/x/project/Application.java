@@ -1,7 +1,6 @@
 package x.project;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -50,7 +49,7 @@ public class Application extends javafx.application.Application {
     public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
         Pane pane = new Pane();
-        Scene scene = new Scene(borderPane, 1540, 1000);
+        javafx.scene.Scene scene = new javafx.scene.Scene(borderPane, 1540, 1000);
         scene.getStylesheets().add(getResourcePath("/styles/styles.css"));
         borderPane.setCenter(pane);
 
@@ -77,7 +76,7 @@ public class Application extends javafx.application.Application {
         boxes.add(box2);
         boxes.add(box3);
 
-        Physics physics = new Physics(box1, box2, box3, spring);
+        Scene physics = new Scene(box1, box2, box3, spring);
         BreakTimer breakTimer = new BreakTimer(physics);
         ShowDescription showDescriptionBox1 = new ShowDescription(pane, box1);
         ShowDescription showDescriptionBox2 = new ShowDescription(pane, box2);
@@ -93,7 +92,7 @@ public class Application extends javafx.application.Application {
         CameraMover cameraMover = CameraMover.CAMERA_MOVER;
         borderPane.setOnKeyPressed(new PressHandler(cameraMover));
         borderPane.setOnKeyReleased(new ReleaseHandler(cameraMover));
-        AnimationTimer viewTimer = new ViewTimer(boxes, showDescriptions, breakTimer);
+        AnimationTimer viewTimer = new ViewTimer(boxes, showDescriptions);
         viewTimer.start();
 
         Pane bottomPane = new Pane();

@@ -1,5 +1,6 @@
 package x.project;
 
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,10 @@ public class Box {
 
     public double getImpulse() {
         return mass * velocity;
+    }
+
+    public double getKineticEnergy() {
+        return 0.5 * mass * velocity * velocity;
     }
 
     public void move(double seconds, double sceneScaleFactor) {
