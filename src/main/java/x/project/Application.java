@@ -141,7 +141,7 @@ public class Application extends javafx.application.Application {
             box2.setMass(box2New.getMass());
             box3.setMass(box3New.getMass());
 
-            physics.setAreBoxesJoined(false);
+            physics.restart();
             breakTimer.setStop(true);
         });
 

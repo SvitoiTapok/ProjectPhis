@@ -16,7 +16,6 @@ public class Scene {
 
     private final double defaultSpringLength;
 
-    @Setter
     @Getter
     private boolean areBoxesJoined = false;
 
@@ -34,6 +33,11 @@ public class Scene {
 
         defaultSpringLength = getSpringLength();
         startEnergy = getTotalKineticEnergy();
+    }
+
+    public void restart() {
+        totalEnergyLoss = 0.0;
+        areBoxesJoined = false;
     }
 
     public void doFrame(double deltaTime) {

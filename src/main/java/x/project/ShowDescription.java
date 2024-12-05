@@ -8,8 +8,6 @@ import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.text.DecimalFormat;
-
 @Getter
 @Setter
 public class ShowDescription {
@@ -41,7 +39,7 @@ public class ShowDescription {
         double size = box.getWidth();
         double startX = box.getX() + size / 2;
         double startY = 400 + size / 2;
-        textAcceleration = new Text(startX - size / 2, startY - size * 1.2, "a = " + new DecimalFormat("#0.00").format(acceleration) + " м/с^2");
+        textAcceleration = new Text(startX - size / 2, startY - size * 1.2, String.format("a = %.2f м/с^2", acceleration));
         textAcceleration.setFont(Font.font(12));
         pane.getChildren().add(textAcceleration);
     }
@@ -53,16 +51,20 @@ public class ShowDescription {
         double startY = 400 + size / 2;
         double velocitySign = velocity < 0 ? -1.0 : 1.0;
 
-        textVelocity = new Text(startX - size / 2, startY - size, "v = " + new DecimalFormat("#0.00").format(velocity) + "м/с");
+        textVelocity = new Text(startX - size / 2, startY - size, String.format("v = %.2f м/с", velocity));
+        textVelocity.setFont(Font.font(12));
+        center = new Circle(startX, startY, 3);
         velocity *= 20.0;
 
         arrow = new Line(startX, startY, startX + velocity, startY);
         arrowTop = new Line(startX + velocity, startY, startX + velocity - 5 * velocitySign, startY - 5);
         arrowBottom = new Line(startX + velocity, startY, startX + velocity - 5 * velocitySign, startY + 5);
 
-        textVelocity.setFont(Font.font(12));
-        center = new Circle(startX, startY, 3);
-        pane.getChildren().addAll(arrow, arrowTop, arrowBottom, textVelocity, center);
+        if (Math.abs(velocity) > 1e-9) {
+            pane.getChildren().addAll(arrow, arrowTop, arrowBottom);
+        }
+
+        pane.getChildren().addAll(textVelocity, center);
     }
 
     public void hideAll() {
