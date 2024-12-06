@@ -46,6 +46,7 @@ public class ShowDescription {
 
     private void showVelocity() {
         double velocity = box.getVelocity();
+        //System.out.println(velocity);
         double size = box.getWidth();
         double startX = box.getX() + size / 2;
         double startY = 400 + size / 2;

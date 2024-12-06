@@ -3,7 +3,7 @@ package x.project;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Scene {
+public class Physics {
     private static final double SCALE_FACTOR = 50.0;
     private static final double GRAVITY = 10.0;
 
@@ -29,9 +29,9 @@ public class Scene {
 
     @Getter
     @Setter
-    private double sprintConstant = 400;
+    private double springConstant = 400;
 
-    public Scene(Box firstBox, Box secondBox, Box thirdBox, Spring spring) {
+    public Physics(Box firstBox, Box secondBox, Box thirdBox, Spring spring) {
         this.firstBox = firstBox;
         this.secondBox = secondBox;
         this.thirdBox = thirdBox;
@@ -68,7 +68,7 @@ public class Scene {
 
     public double getTotalPotentialEnergy() {
         double deformation = getSpringDeformation();
-        return 0.5 * sprintConstant * deformation * deformation;
+        return 0.5 * springConstant * deformation * deformation;
     }
 
     public double getTotalEnergy() {
@@ -81,7 +81,7 @@ public class Scene {
         }
 
         double springDeformation = getSpringDeformation();
-        double springForce = springDeformation * sprintConstant;
+        double springForce = springDeformation * springConstant;
 
         secondBox.addImpulse(-springForce * deltaTime);
         thirdBox.addImpulse(springForce * deltaTime);
