@@ -8,6 +8,8 @@ import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 public class ObjectDescription {
     private final Box box;
     private final Pane pane;
@@ -16,15 +18,17 @@ public class ObjectDescription {
     private Line arrowBottom;
     private Circle center;
     private Text text;
+    List<Box> boxesList;
     private boolean showing;
 
     @Getter
     @Setter
     private Mode mode;
 
-    public ObjectDescription(Pane pane, Box box, Mode mode) {
+    public ObjectDescription(Pane pane, Box box, List<Box> boxesList, Mode mode) {
         this.pane = pane;
         this.box = box;
+        this.boxesList = boxesList;
         this.mode = mode;
     }
 
@@ -36,10 +40,12 @@ public class ObjectDescription {
                 return;
             }
 
+            double maxMass = boxesList.stream().map(Box::getMass).max(Double::compareTo).orElse(1.0);
+
             switch (mode) {
                 case VELOCITY -> showVelocity();
                 case ACCELERATION -> showAcceleration();
-                case FRICTION_FORCE -> showForce(box.getFrictionForce(), 1.0);
+                case FRICTION_FORCE -> showForce(box.getFrictionForce(), 150.0 / maxMass);
                 case SPRING_FORCE -> showForce(box.getSpringForce(), 1.0);
             }
         }

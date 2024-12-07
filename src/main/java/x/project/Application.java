@@ -60,7 +60,7 @@ public class Application extends javafx.application.Application {
 
         List<ObjectDescription> objectDescriptions = boxes.stream()
                 .map(box ->
-                        new ObjectDescription(pane, box, Mode.VELOCITY)
+                        new ObjectDescription(pane, box, boxes, Mode.VELOCITY)
                 ).toList();
 
         //организация движения камеры
