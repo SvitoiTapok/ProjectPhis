@@ -8,8 +8,6 @@ import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 public class ObjectDescription {
     private final Box box;
     private final Pane pane;
@@ -19,6 +17,9 @@ public class ObjectDescription {
     private Circle center;
     private Text text;
     private boolean showing;
+
+    @Getter
+    @Setter
     private Mode mode;
 
     public ObjectDescription(Pane pane, Box box, Mode mode) {

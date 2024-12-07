@@ -41,55 +41,41 @@ public class SceneController {
 
     @FXML
     void myChange(ActionEvent event) {
-        boolean f1 = false, f2 = false, f3 = false, f4 = false, f5 = false;
+        boolean f1 = true, f2 = true, f3 = true, f4 = true, f5 = true;
 
         try {
-            double mu = Double.parseDouble(muTextField.getText());
-            f1 = (mu != this.mu);
-            System.out.println(mu + " " + this.mu + f1);
-            this.mu = mu;
-
-            ParametersChanger.PARAMETERS_CHANGER.changeFrictionCoefficient(mu);
+            ParametersChanger.PARAMETERS_CHANGER.changeFrictionCoefficient(Double.parseDouble(muTextField.getText()));
             muTextField.setPromptText(muTextField.getText());
-
         } catch (Exception ignored) {
+            f1 = false;
         }
 
         try {
-            double k = Double.parseDouble(kTextField.getText());
-            f2 = (k != this.k);
-            this.k = k;
-            ParametersChanger.PARAMETERS_CHANGER.changeSpringCoefficient(k);
+            ParametersChanger.PARAMETERS_CHANGER.changeSpringCoefficient(Double.parseDouble(kTextField.getText()));
             kTextField.setPromptText(kTextField.getText());
         } catch (Exception ignored) {
+            f2 = false;
         }
 
         try {
-            double m1 = Double.parseDouble(m1TextField.getText());
-            f3 = (m1 != this.m1);
-            this.m1 = m1;
-            ParametersChanger.PARAMETERS_CHANGER.changeM1(m1);
+            ParametersChanger.PARAMETERS_CHANGER.changeM1(Double.parseDouble(m1TextField.getText()));
             m1TextField.setPromptText(m1TextField.getText());
         } catch (Exception ignored) {
+            f3 = false;
         }
 
         try {
-            double m2 = Double.parseDouble(m2TextField.getText());
-            f4 = (m2 != this.m2);
-            this.m2 = m2;
-            ParametersChanger.PARAMETERS_CHANGER.changeM2(m2);
+            ParametersChanger.PARAMETERS_CHANGER.changeM2(Double.parseDouble(m2TextField.getText()));
             m2TextField.setPromptText(m2TextField.getText());
         } catch (Exception ignored) {
+            f4 = false;
         }
 
         try {
-            double m3 = Double.parseDouble(m3TextField.getText());
-            f5 = (m3 != this.m3);
-            this.m3 = m3;
-            ParametersChanger.PARAMETERS_CHANGER.changeM3(m3);
+            ParametersChanger.PARAMETERS_CHANGER.changeM3(Double.parseDouble(m3TextField.getText()));
             m3TextField.setPromptText(m3TextField.getText());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            f5 = false;
         }
 
         if (!(f1 || f2 || f3 || f4 || f5)) {
@@ -100,11 +86,11 @@ public class SceneController {
         }
 
         String output = "";
-        if (f1) output += "mu ";
-        if (f2) output += "k ";
-        if (f3) output += "m1 ";
-        if (f4) output += "m2 ";
-        if (f5) output += "m3 ";
+        output += f1 ? "mu " : "";
+        output += f2 ? "k " : "";
+        output += f3 ? "m1 " : "";
+        output += f4 ? "m2 " : "";
+        output += f5 ? "m3 " : "";
         changeMessage.setText(output + "успешно изменен(ы)!");
     }
 
