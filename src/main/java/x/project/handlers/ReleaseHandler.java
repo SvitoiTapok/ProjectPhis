@@ -20,5 +20,11 @@ public class ReleaseHandler implements EventHandler<KeyEvent> {
         if(keyEvent.getCode().equals(KeyCode.A)){
             cameraMover.setMovingRight(false);
         }
+        if(keyEvent.getCode().equals(KeyCode.S)){
+            cameraMover.setMovingDown(false);
+        }
+        if(keyEvent.getCode().equals(KeyCode.W)){
+            cameraMover.setMovingUp(false);
+        }
     }
 }

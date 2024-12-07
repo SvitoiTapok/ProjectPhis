@@ -11,9 +11,11 @@ public class CameraMover {
 
     private boolean movingLeft = false;
     private boolean movingRight = false;
+    private boolean movingDown = false;
+    private boolean movingUp = false;
 
-    @Getter
     private double cameraX = 0.0;
+    private double cameraY = 0.0;
 
     public void handleMove() {
         if (movingRight) {
@@ -22,6 +24,12 @@ public class CameraMover {
 
         if (movingLeft) {
             cameraX -= OFFSET;
+        }
+        if (movingUp) {
+            cameraY -= OFFSET;
+        }
+        if (movingDown) {
+            cameraY += OFFSET;
         }
     }
 }

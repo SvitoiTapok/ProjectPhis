@@ -37,7 +37,7 @@
                </GridPane.margin>
            </Label>
            <TextField fx:id="kTextField" onInputMethodTextChanged="#myChange" prefHeight="25.0" prefWidth="286.0" promptText="40" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         <Label prefHeight="17.0" prefWidth="160.0" text="Значение k(Н/м^2)" GridPane.rowIndex="1">
+         <Label prefHeight="17.0" prefWidth="180.0" text="Значение k(Н/м^2)" GridPane.rowIndex="1">
             <GridPane.margin>
                <Insets left="10.0" />
             </GridPane.margin>
@@ -49,7 +49,7 @@
          </Label>
          <TextField fx:id="m1TextField" promptText="1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          <TextField fx:id="m2TextField" promptText="1" GridPane.columnIndex="3" />
-         <Label prefHeight="17.0" prefWidth="140.0" text="Значение m2(кг)" GridPane.columnIndex="2">
+         <Label prefHeight="17.0" prefWidth="180.0" text="Значение m2(кг)" GridPane.columnIndex="2">
             <GridPane.margin>
                <Insets left="10.0" />
             </GridPane.margin>

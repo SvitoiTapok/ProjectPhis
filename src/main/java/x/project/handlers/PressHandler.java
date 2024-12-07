@@ -20,5 +20,11 @@ public class PressHandler implements EventHandler<KeyEvent> {
         if(keyEvent.getCode().equals(KeyCode.A)){
             cameraMover.setMovingRight(true);
         }
+        if(keyEvent.getCode().equals(KeyCode.S)){
+            cameraMover.setMovingDown(true);
+        }
+        if(keyEvent.getCode().equals(KeyCode.W)){
+            cameraMover.setMovingUp(true);
+        }
     }
 }

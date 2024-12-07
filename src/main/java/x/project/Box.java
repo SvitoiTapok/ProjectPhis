@@ -17,7 +17,7 @@ public class Box extends SceneObject {
     private boolean joined = false;
 
     public Box(double x, double size, double mass, double velocity, double acceleration, Rectangle view) {
-        super(view, x);
+        super(view, x, 400);
 
         this.width = size;
         this.velocity = velocity;
@@ -27,7 +27,6 @@ public class Box extends SceneObject {
 
         view.setWidth(getWidth());
         view.setHeight(getWidth());
-        view.setY(400);
     }
 
     public void addImpulse(double impulse) {

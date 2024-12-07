@@ -9,14 +9,13 @@ public class Spring extends SceneObject {
     private final Box rightBox;
 
     public Spring(Box leftBox, Box rightBox, Rectangle view) {
-        super(view, leftBox.getX() + leftBox.getWidth());
+        super(view, leftBox.getX() + leftBox.getWidth(), 400+leftBox.getView().getHeight() / 3);
         this.leftBox = leftBox;
         this.rightBox = rightBox;
 
         double height = leftBox.getView().getHeight() / 3;
 
-        view.setY(400 + height);
-        view.setWidth(rightBox.getX() - (leftBox.getX() + leftBox.getWidth()));
+        updateWidth();
         view.setHeight(height);
 
         updateOnScreenPosition();
