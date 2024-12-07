@@ -100,17 +100,13 @@ public class Physics {
         totalEnergyLoss = 0.0;
         firstBox.setJoined(false);
 
-        reinitBox(firstBox);
-        reinitBox(secondBox);
-        reinitBox(thirdBox);
-
         firstBox.setX(200);
         secondBox.setX(600);
         thirdBox.setX(1000);
 
-        firstBox.move(0.0, SCALE_FACTOR);
-        secondBox.move(0.0, SCALE_FACTOR);
-        thirdBox.move(0.0, SCALE_FACTOR);
+        reinitBox(firstBox);
+        reinitBox(secondBox);
+        reinitBox(thirdBox);
 
         firstBox.setMass(firstBoxDefaultMass);
         secondBox.setMass(secondBoxDefaultMass);
