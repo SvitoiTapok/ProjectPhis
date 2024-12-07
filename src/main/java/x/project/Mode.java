@@ -2,6 +2,7 @@ package x.project;
 
 public enum Mode {
     VELOCITY,
-    FORCE,
+    FRICTION_FORCE,
+    SPRING_FORCE,
     ACCELERATION
 }

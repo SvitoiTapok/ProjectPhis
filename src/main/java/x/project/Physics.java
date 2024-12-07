@@ -1,27 +1,43 @@
 package x.project;
 
+import com.sun.security.auth.NTSidUserPrincipal;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
+
+import static x.project.Application.getResourcePath;
 
 public class Physics {
     private static final double SCALE_FACTOR = 50.0;
     private static final double GRAVITY = 10.0;
 
-    private final Box firstBox;
-    private final Box secondBox;
-    private final Box thirdBox;
-    private final Spring spring;
-
-    private final double defaultSpringLength;
+    @Getter
+    @Setter
+    double firstBoxDefaultMass = 1.0;
 
     @Getter
-    private boolean areBoxesJoined = false;
+    @Setter
+    double secondBoxDefaultMass = 1.0;
 
     @Getter
-    private double totalEnergyLoss = 0;
+    @Setter
+    double thirdBoxDefaultMass = 2.0;
 
     @Getter
-    private double startEnergy = 0;
+    @Setter
+    double firstBoxDefaultVelocity = 5.0;
+
+    @Getter
+    @Setter
+    double secondBoxDefaultVelocity = 0.0;
+
+    @Getter
+    @Setter
+    double thirdBoxDefaultVelocity = 0.0;
 
     @Getter
     @Setter
@@ -31,34 +47,113 @@ public class Physics {
     @Setter
     private double springConstant = 400;
 
-    public Physics(Box firstBox, Box secondBox, Box thirdBox, Spring spring) {
-        this.firstBox = firstBox;
-        this.secondBox = secondBox;
-        this.thirdBox = thirdBox;
-        this.spring = spring;
+    private final Box firstBox = createFirstBox();
+    private final Box secondBox = createSecondBox();
+    private final Box thirdBox = createThirdBox();
 
-        defaultSpringLength = getSpringLength();
-        startEnergy = getTotalKineticEnergy();
+    @Getter
+    private final Spring spring = createSpring(secondBox, thirdBox);
+
+    private final double defaultSpringLength = getSpringLength();
+
+    @Getter
+    private double totalEnergyLoss = 0;
+
+    @Getter
+    private double startEnergy = getTotalKineticEnergy();
+
+    private Box createFirstBox() {
+        Box newBox = new Box(200, 100, firstBoxDefaultMass, firstBoxDefaultVelocity, 0, new Rectangle());
+        newBox.getView().setFill(new ImagePattern(new Image(getResourcePath("/images/square_red.png"))));
+        return newBox;
+    }
+
+    private Box createSecondBox() {
+        Box newBox = new Box(600, 100, secondBoxDefaultMass, secondBoxDefaultVelocity, 0, new Rectangle());
+        newBox.getView().setFill(new ImagePattern(new Image(getResourcePath("/images/square_green.png"))));
+        return newBox;
+    }
+
+    private Box createThirdBox() {
+        Box newBox = new Box(1000, 100, thirdBoxDefaultMass, thirdBoxDefaultVelocity, 0, new Rectangle());
+        newBox.getView().setFill(new ImagePattern(new Image(getResourcePath("/images/square_purple.png"))));
+        return newBox;
+    }
+
+    private Spring createSpring(Box leftBox, Box rightBox) {
+        Spring newSpring = new Spring(leftBox, rightBox, new Rectangle());
+        newSpring.getView().setFill(new ImagePattern(new Image(getResourcePath("/images/spring_horizontal.png"))));
+        return newSpring;
+    }
+
+    public List<Box> getBoxesList() {
+        return List.of(firstBox, secondBox, thirdBox);
+    }
+
+    private void reinitBox(Box box) {
+        box.move(0.0, SCALE_FACTOR);
+        box.setSpringForce(0.0);
+        box.setFrictionForce(0.0);
+        box.setAcceleration(0.0);
     }
 
     public void restart() {
         totalEnergyLoss = 0.0;
-        areBoxesJoined = false;
+        firstBox.setJoined(false);
+
+        reinitBox(firstBox);
+        reinitBox(secondBox);
+        reinitBox(thirdBox);
+
+        firstBox.setX(200);
+        secondBox.setX(600);
+        thirdBox.setX(1000);
+
+        firstBox.move(0.0, SCALE_FACTOR);
+        secondBox.move(0.0, SCALE_FACTOR);
+        thirdBox.move(0.0, SCALE_FACTOR);
+
+        firstBox.setMass(firstBoxDefaultMass);
+        secondBox.setMass(secondBoxDefaultMass);
+        thirdBox.setMass(thirdBoxDefaultMass);
+
+        firstBox.setVelocity(firstBoxDefaultVelocity);
+        secondBox.setVelocity(secondBoxDefaultVelocity);
+        thirdBox.setVelocity(thirdBoxDefaultVelocity);
+
+        firstBox.setPreviousVelocity(firstBoxDefaultVelocity);
+        secondBox.setPreviousVelocity(secondBoxDefaultVelocity);
+        thirdBox.setPreviousVelocity(thirdBoxDefaultVelocity);
+    }
+
+    public void hotReload() {
+        if (firstBox.isJoined()) {
+            secondBox.setMass(firstBoxDefaultMass + secondBoxDefaultMass);
+            thirdBox.setMass(thirdBoxDefaultMass);
+        } else {
+            firstBox.setMass(firstBoxDefaultMass);
+            secondBox.setMass(secondBoxDefaultMass);
+            thirdBox.setMass(thirdBoxDefaultMass);
+        }
     }
 
     public void doFrame(double deltaTime) {
-        detectBoxesCollision();
-        addSpringForce(deltaTime);
-        addFrictionForce(deltaTime);
+        if (deltaTime > 0) {
+            detectBoxesCollision();
 
-        if (areBoxesJoined) {
-            firstBox.setAcceleration(secondBox.getAcceleration());
-            firstBox.setVelocity(secondBox.getVelocity());
+            addSpringForce(deltaTime);
+            addFrictionForce(deltaTime);
+
+            if (firstBox.isJoined()) {
+                firstBox.setAcceleration(secondBox.getAcceleration());
+                firstBox.setVelocity(secondBox.getVelocity());
+            }
+
+            firstBox.move(deltaTime, SCALE_FACTOR);
+            secondBox.move(deltaTime, SCALE_FACTOR);
+            thirdBox.move(deltaTime, SCALE_FACTOR);
         }
 
-        firstBox.move(deltaTime, SCALE_FACTOR);
-        secondBox.move(deltaTime, SCALE_FACTOR);
-        thirdBox.move(deltaTime, SCALE_FACTOR);
         spring.move();
     }
 
@@ -76,30 +171,31 @@ public class Physics {
     }
 
     private void addSpringForce(double deltaTime) {
-        if (!areBoxesJoined) {
+        if (!firstBox.isJoined()) {
             return;
         }
 
         double springDeformation = getSpringDeformation();
         double springForce = springDeformation * springConstant;
 
+        secondBox.setSpringForce(-springForce);
+        thirdBox.setSpringForce(springForce);
+
         secondBox.addImpulse(-springForce * deltaTime);
         thirdBox.addImpulse(springForce * deltaTime);
     }
 
     private void addFrictionForce(double deltaTime) {
-        addFrictionForceForTheBox(firstBox, deltaTime);
+        if (!firstBox.isJoined()) {
+            addFrictionForceForTheBox(firstBox, deltaTime);
+        }
+
         addFrictionForceForTheBox(secondBox, deltaTime);
         addFrictionForceForTheBox(thirdBox, deltaTime);
     }
 
     private void addFrictionForceForTheBox(Box box, double deltaTime) {
         double boxMass = box.getMass();
-
-        if (boxMass == 0) {
-            return;
-        }
-
         double frictionForce = frictionCoefficient * GRAVITY * boxMass;
         double maxFrictionImpulse = frictionForce * deltaTime;
 
@@ -109,12 +205,13 @@ public class Physics {
 
         double energyBefore = box.getKineticEnergy();
         box.addImpulse(frictionImpulse);
+        box.setFrictionForce(frictionImpulse / deltaTime);
 
         totalEnergyLoss += energyBefore - box.getKineticEnergy();
     }
 
     private void detectBoxesCollision() {
-        if (areBoxesJoined) {
+        if (firstBox.isJoined()) {
             return;
         }
 
@@ -128,13 +225,15 @@ public class Physics {
     }
 
     private void joinBoxes() {
-        areBoxesJoined = true;
+        firstBox.setJoined(true);
 
         double impulse = firstBox.getImpulse() + secondBox.getImpulse();
         double mass = firstBox.getMass() + secondBox.getMass();
         double energyBefore = firstBox.getKineticEnergy() + secondBox.getKineticEnergy();
 
         firstBox.setMass(0.0);
+        firstBox.setFrictionForce(0.0);
+
         secondBox.setVelocity(impulse / mass);
         secondBox.setMass(mass);
 

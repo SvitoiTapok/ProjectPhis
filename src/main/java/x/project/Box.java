@@ -15,6 +15,9 @@ public class Box {
     private double mass;
     private final Rectangle view;
     private double previousVelocity;
+    private double frictionForce = 0.0;
+    private double springForce = 0.0;
+    private boolean joined = false;
 
     public Box(double x, double size, double mass, double velocity, double acceleration, Rectangle view) {
         this.x = x;

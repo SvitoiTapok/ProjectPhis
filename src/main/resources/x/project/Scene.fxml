@@ -47,8 +47,8 @@
                <Insets left="10.0" />
             </GridPane.margin>
          </Label>
-         <TextField fx:id="m1TextField" promptText="8" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-         <TextField fx:id="m2TextField" promptText="8" GridPane.columnIndex="3" />
+         <TextField fx:id="m1TextField" promptText="1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         <TextField fx:id="m2TextField" promptText="1" GridPane.columnIndex="3" />
          <Label prefHeight="17.0" prefWidth="140.0" text="Значение m2(кг)" GridPane.columnIndex="2">
             <GridPane.margin>
                <Insets left="10.0" />
@@ -64,7 +64,7 @@
                <Insets left="-90.0" />
             </GridPane.margin>
          </Button>
-         <TextField promptText="16" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+         <TextField fx:id="m3TextField" promptText="2" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="399.0" text="Информация об изменении:" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          <Label fx:id="changeMessage" prefHeight="17.0" prefWidth="569.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
             <padding>

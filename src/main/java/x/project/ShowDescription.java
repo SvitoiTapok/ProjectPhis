@@ -30,12 +30,16 @@ public class ShowDescription {
     public void showAll() {
         if (!showing) {
             showing = true;
-            if (mode.equals(Mode.VELOCITY)) {
-                showVelocity();
-            } else if (mode.equals(Mode.ACCELERATION)) {
-                showAcceleration();
-            } else if (mode.equals(Mode.FORCE)) {
-                showForce();
+
+            if (box.isJoined()) {
+                return;
+            }
+
+            switch (mode) {
+                case VELOCITY -> showVelocity();
+                case ACCELERATION -> showAcceleration();
+                case FRICTION_FORCE -> showForce(box.getFrictionForce(), 40.0 / box.getMass());
+                case SPRING_FORCE -> showForce(box.getSpringForce(), 1.0);
             }
         }
     }
@@ -85,8 +89,7 @@ public class ShowDescription {
         pane.getChildren().addAll(text, center);
     }
 
-    private void showForce() {
-        double force = box.getAcceleration() * box.getMass();
+    private void showForce(double force, double scale) {
         double size = box.getWidth();
         double startX = box.getX() + size / 2;
         double startY = 400 + size / 2;
@@ -94,14 +97,19 @@ public class ShowDescription {
 
         text = new Text(startX - size / 2, startY - 80, String.format("F = %.2f Н", force));
         text.setFont(Font.font(12));
-        center = new Circle(startX, startY, 3);
 
+        force *= scale;
+
+        center = new Circle(startX, startY, 3);
         arrow = new Line(startX, startY, startX + force, startY);
+
         arrowTop = new Line(startX + force, startY, startX + force - 5 * forceSign, startY - 5);
         arrowBottom = new Line(startX + force, startY, startX + force - 5 * forceSign, startY + 5);
+
         if (Math.abs(force) > 1e-9) {
             pane.getChildren().addAll(arrow, arrowTop, arrowBottom);
         }
+
         pane.getChildren().addAll(text, center);
     }
 
