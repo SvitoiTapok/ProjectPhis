@@ -17,20 +17,26 @@ public class ShowDescription {
     private Line arrowTop;
     private Line arrowBottom;
     private Circle center;
-    private Text textVelocity;
-    private Text textAcceleration;
+    private Text text;
     private boolean showing;
+    private Mode mode;
 
-    public ShowDescription(Pane pane, Box box) {
+    public ShowDescription(Pane pane, Box box, Mode mode) {
         this.pane = pane;
         this.box = box;
+        this.mode = mode;
     }
 
     public void showAll() {
         if (!showing) {
             showing = true;
-            showVelocity();
-            showAcceleration();
+            if (mode.equals(Mode.VELOCITY)) {
+                showVelocity();
+            } else if (mode.equals(Mode.ACCELERATION)) {
+                showAcceleration();
+            } else if (mode.equals(Mode.FORCE)) {
+                showForce();
+            }
         }
     }
 
@@ -39,9 +45,21 @@ public class ShowDescription {
         double size = box.getWidth();
         double startX = box.getX() + size / 2;
         double startY = 400 + size / 2;
-        textAcceleration = new Text(startX - size / 2, startY - size * 1.2, String.format("a = %.2f м/с^2", acceleration));
-        textAcceleration.setFont(Font.font(12));
-        pane.getChildren().add(textAcceleration);
+        double accelerationSign = acceleration < 0 ? -1.0 : 1.0;
+
+        text = new Text(startX - size / 2, startY - 80, String.format("a = %.2f м/с^2", acceleration));
+        text.setFont(Font.font(12));
+        center = new Circle(startX, startY, 3);
+
+        acceleration *= 20.0;
+
+        arrow = new Line(startX, startY, startX + acceleration, startY);
+        arrowTop = new Line(startX + acceleration, startY, startX + acceleration - 5 * accelerationSign, startY - 5);
+        arrowBottom = new Line(startX + acceleration, startY, startX + acceleration - 5 * accelerationSign, startY + 5);
+        if (Math.abs(acceleration) > 1e-9) {
+            pane.getChildren().addAll(arrow, arrowTop, arrowBottom);
+        }
+        pane.getChildren().addAll(text, center);
     }
 
     private void showVelocity() {
@@ -52,8 +70,8 @@ public class ShowDescription {
         double startY = 400 + size / 2;
         double velocitySign = velocity < 0 ? -1.0 : 1.0;
 
-        textVelocity = new Text(startX - size / 2, startY - size, String.format("v = %.2f м/с", velocity));
-        textVelocity.setFont(Font.font(12));
+        text = new Text(startX - size / 2, startY - 80, String.format("v = %.2f м/с", velocity));
+        text.setFont(Font.font(12));
         center = new Circle(startX, startY, 3);
         velocity *= 20.0;
 
@@ -64,21 +82,31 @@ public class ShowDescription {
         if (Math.abs(velocity) > 1e-9) {
             pane.getChildren().addAll(arrow, arrowTop, arrowBottom);
         }
+        pane.getChildren().addAll(text, center);
+    }
 
-        pane.getChildren().addAll(textVelocity, center);
+    private void showForce() {
+        double force = box.getAcceleration() * box.getMass();
+        double size = box.getWidth();
+        double startX = box.getX() + size / 2;
+        double startY = 400 + size / 2;
+        double forceSign = force < 0 ? -1.0 : 1.0;
+
+        text = new Text(startX - size / 2, startY - 80, String.format("F = %.2f Н", force));
+        text.setFont(Font.font(12));
+        center = new Circle(startX, startY, 3);
+
+        arrow = new Line(startX, startY, startX + force, startY);
+        arrowTop = new Line(startX + force, startY, startX + force - 5 * forceSign, startY - 5);
+        arrowBottom = new Line(startX + force, startY, startX + force - 5 * forceSign, startY + 5);
+        if (Math.abs(force) > 1e-9) {
+            pane.getChildren().addAll(arrow, arrowTop, arrowBottom);
+        }
+        pane.getChildren().addAll(text, center);
     }
 
     public void hideAll() {
         showing = false;
-        hideVelocity();
-        hideAcceleration();
-    }
-
-    private void hideAcceleration() {
-        pane.getChildren().remove(textAcceleration);
-    }
-
-    private void hideVelocity() {
-        pane.getChildren().removeAll(arrow, arrowTop, arrowBottom, textVelocity, center);
+        pane.getChildren().removeAll(arrow, arrowTop, arrowBottom, text, center);
     }
 }

@@ -1,8 +1,11 @@
 package x.project;
 
 import javafx.animation.AnimationTimer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -55,7 +58,7 @@ public class Application extends javafx.application.Application {
         //javafx.scene.Scene scene = new javafx.scene.Scene(borderPane, 1540, 1000);
         // borderPane.setCenter(pane);
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("Scene.fxml"));
-        javafx.scene.Scene scene = new javafx.scene.Scene(fxmlLoader.load(), 1540, 1000);
+        javafx.scene.Scene scene = new javafx.scene.Scene(fxmlLoader.load(), 3000, 1000);
         scene.getStylesheets().add(getResourcePath("/styles/styles.css"));
         SceneController sceneController = fxmlLoader.getController();
         Pane pane = sceneController.getPane();
@@ -97,9 +100,9 @@ public class Application extends javafx.application.Application {
         ParametersChanger.PARAMETERS_CHANGER.setPhysics(physics);
 
         BreakTimer breakTimer = new BreakTimer(physics);
-        ShowDescription showDescriptionBox1 = new ShowDescription(pane, box1);
-        ShowDescription showDescriptionBox2 = new ShowDescription(pane, box2);
-        ShowDescription showDescriptionBox3 = new ShowDescription(pane, box3);
+        ShowDescription showDescriptionBox1 = new ShowDescription(pane, box1, Mode.VELOCITY);
+        ShowDescription showDescriptionBox2 = new ShowDescription(pane, box2, Mode.VELOCITY);
+        ShowDescription showDescriptionBox3 = new ShowDescription(pane, box3, Mode.VELOCITY);
 
         List<ShowDescription> showDescriptions = new ArrayList<>();
         showDescriptions.add(showDescriptionBox1);
@@ -145,6 +148,10 @@ public class Application extends javafx.application.Application {
             box2.setVelocity(box2New.getVelocity());
             box3.setVelocity(box3New.getVelocity());
 
+            box1.setPreviousVelocity(box1New.getPreviousVelocity());
+            box2.setPreviousVelocity(box2New.getPreviousVelocity());
+            box3.setPreviousVelocity(box3New.getPreviousVelocity());
+
             box1.setAcceleration(box1New.getAcceleration());
             box2.setAcceleration(box2New.getAcceleration());
             box3.setAcceleration(box3New.getAcceleration());
@@ -156,13 +163,26 @@ public class Application extends javafx.application.Application {
             physics.restart();
             breakTimer.setStop(true);
         });
+        ObservableList<Mode> modes = FXCollections.observableArrayList(Mode.VELOCITY, Mode.FORCE, Mode.ACCELERATION);
+        ComboBox<Mode> comboBox = new ComboBox<>(modes);
+        comboBox.getStyleClass().add("combo-box");
+        comboBox.setValue(Mode.VELOCITY);
+        comboBox.setPrefWidth(300);
+        comboBox.setPrefHeight(100);
+        comboBox.setLayoutX(790);
+        comboBox.setOnAction(event -> {
+            Mode value = comboBox.getValue();
+            for (ShowDescription showDescription : showDescriptions) {
+                showDescription.setMode(value);
+            }
+        });
 
-        bottomPane.getChildren().addAll(breakButton, recreateButton);
+        pane.getChildren().addAll(breakButton, recreateButton, comboBox);
 
         stage.setTitle("Project");
-        //stage.setWidth(1280);
-        //stage.setHeight(768);
-        //stage.setMaximized(true);
+        stage.setWidth(1280);
+        stage.setHeight(768);
+        stage.setMaximized(true);
         stage.getIcons().add(new Image(getResourcePath("/images/spring.png")));
         stage.setScene(scene);
         stage.show();
