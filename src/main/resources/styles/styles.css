@@ -1,5 +1,5 @@
 .controller{
-    -fx-background-color: #4681f4;
+    -fx-background-color: #4eb543;
     -fx-text-fill: white;
     -fx-font-size: 40px;
     -fx-font-family: sans-serif;
@@ -14,4 +14,23 @@
     -fx-font-size: 20px;
     -fx-font-family: sans-serif;
     -fx-font-weight: bold;
+}
+.combo-box{
+    -fx-background-color: #4eb543;
+}
+
+.combo-box .list-cell {
+    -fx-font-size: 30px;
+    -fx-font-family: sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.combo-box .arrow-button {
+    -fx-font-size: 20px;
+    -fx-background-color: #4eb543;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: black;
 }
