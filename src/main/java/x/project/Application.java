@@ -120,30 +120,18 @@ public class Application extends javafx.application.Application {
         //borderPane.getBottom().toFront();
         bottomPane.setPrefHeight(120);
 
-        Button breakButton = new Button("break");
+        Button breakButton = new Button("break/continue");
         breakButton.getStyleClass().add("controller");
-        breakButton.setPrefWidth(300);
+        breakButton.setPrefWidth(400);
         breakButton.setPrefHeight(100);
         breakButton.setLayoutX(30);
-        breakButton.setOnAction(event -> breakTimer.setStop(true));
-
-        Button continueButton = new Button("continue");
-        continueButton.getStyleClass().add("controller");
-        continueButton.setPrefWidth(300);
-        continueButton.setPrefHeight(100);
-        continueButton.setLayoutX(360);
-        continueButton.setOnAction(event -> {
-            breakTimer.setStop(false);
-            for (ShowDescription showDescription : showDescriptions) {
-                showDescription.hideAll();
-            }
-        });
+        breakButton.setOnAction(event -> breakTimer.setStop(!breakTimer.isStop()));
 
         Button recreateButton = new Button("restart");
         recreateButton.getStyleClass().add("controller");
         recreateButton.setPrefWidth(300);
         recreateButton.setPrefHeight(100);
-        recreateButton.setLayoutX(690);
+        recreateButton.setLayoutX(460);
         recreateButton.setOnAction(event -> {
             Box box1New = createFirstBox();
             Box box2New = createSecondBox();
@@ -169,7 +157,7 @@ public class Application extends javafx.application.Application {
             breakTimer.setStop(true);
         });
 
-        bottomPane.getChildren().addAll(breakButton, continueButton, recreateButton);
+        bottomPane.getChildren().addAll(breakButton, recreateButton);
 
         stage.setTitle("Project");
         //stage.setWidth(1280);
