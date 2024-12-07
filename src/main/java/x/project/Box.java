@@ -1,6 +1,5 @@
 package x.project;
 
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import lombok.Getter;
 import lombok.Setter;

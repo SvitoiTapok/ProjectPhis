@@ -53,7 +53,7 @@ public class Application extends javafx.application.Application {
         pane.getChildren().addAll(boxes.stream().map(Box::getView).toList());
         pane.getChildren().addAll(physics.getSpring().getView());
 
-        BreakTimer breakTimer = new BreakTimer(physics);
+        StoppableTimer stoppableTimer = new StoppableTimer(physics);
 
         List<ShowDescription> showDescriptions = boxes.stream()
                 .map(box ->
@@ -77,7 +77,7 @@ public class Application extends javafx.application.Application {
         breakButton.setPrefWidth(400);
         breakButton.setPrefHeight(100);
         breakButton.setLayoutX(30);
-        breakButton.setOnAction(event -> breakTimer.setStop(!breakTimer.isStop()));
+        breakButton.setOnAction(event -> stoppableTimer.setStop(!stoppableTimer.isStop()));
 
         Button recreateButton = new Button("restart");
         recreateButton.getStyleClass().add("controller");
@@ -86,7 +86,7 @@ public class Application extends javafx.application.Application {
         recreateButton.setLayoutX(460);
         recreateButton.setOnAction(event -> {
             physics.restart();
-            breakTimer.setStop(true);
+            stoppableTimer.setStop(true);
         });
 
         ObservableList<Mode> modes = FXCollections.observableArrayList(Mode.VELOCITY, Mode.ACCELERATION, Mode.FRICTION_FORCE, Mode.SPRING_FORCE);
@@ -112,8 +112,8 @@ public class Application extends javafx.application.Application {
         stage.getIcons().add(new Image(getResourcePath("/images/spring.png")));
         stage.setScene(scene);
         stage.show();
-        breakTimer.start();
-        breakTimer.setStop(true);
+        stoppableTimer.start();
+        stoppableTimer.setStop(true);
     }
 
     public static void main(String[] args) {

@@ -6,12 +6,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BreakTimer extends AnimationTimer {
+public class StoppableTimer extends AnimationTimer {
     private long lastTime = 0;
     private boolean stop = false;
     private final Physics physics;
 
-    public BreakTimer(Physics physics) {
+    public StoppableTimer(Physics physics) {
         this.physics = physics;
     }
 
