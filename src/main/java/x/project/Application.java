@@ -28,7 +28,7 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("Scene.fxml"));
-        javafx.scene.Scene scene = new javafx.scene.Scene(fxmlLoader.load(), 3000, 1000);
+        javafx.scene.Scene scene = new javafx.scene.Scene(fxmlLoader.load(), 3000, 3000);
         scene.getStylesheets().add(getResourcePath("/styles/styles.css"));
         SceneController sceneController = fxmlLoader.getController();
         Pane pane = sceneController.getPane();
