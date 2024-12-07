@@ -81,6 +81,6 @@ public class ObjectDescription {
 
     public void hideAll() {
         showing = false;
-        pane.getChildren().clear();
+        pane.getChildren().removeAll(arrow, arrowTop, arrowBottom, text, center);
     }
 }
