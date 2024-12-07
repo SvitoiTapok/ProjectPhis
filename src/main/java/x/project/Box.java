@@ -6,31 +6,28 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Box {
-    private double x;
+public class Box extends SceneObject {
     private double width;
     private double velocity;
     private double acceleration;
     private double mass;
-    private final Rectangle view;
     private double previousVelocity;
     private double frictionForce = 0.0;
     private double springForce = 0.0;
     private boolean joined = false;
 
     public Box(double x, double size, double mass, double velocity, double acceleration, Rectangle view) {
-        this.x = x;
+        super(view, x);
+
         this.width = size;
         this.velocity = velocity;
         this.acceleration = acceleration;
         this.mass = mass;
         this.previousVelocity = velocity;
 
-        view.setX(getX());
         view.setWidth(getWidth());
         view.setHeight(getWidth());
         view.setY(400);
-        this.view = view;
     }
 
     public void addImpulse(double impulse) {
@@ -51,7 +48,6 @@ public class Box {
             previousVelocity = velocity;
         }
 
-        x += velocity * seconds * sceneScaleFactor;
-        view.setX(x);
+        incrementX(velocity * seconds * sceneScaleFactor);
     }
 }

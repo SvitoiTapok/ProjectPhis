@@ -65,7 +65,7 @@ public class Application extends javafx.application.Application {
         CameraMover cameraMover = CameraMover.CAMERA_MOVER;
         borderPane.setOnKeyPressed(new PressHandler(cameraMover));
         borderPane.setOnKeyReleased(new ReleaseHandler(cameraMover));
-        AnimationTimer viewTimer = new ViewTimer(physics.getBoxesList(), showDescriptions);
+        AnimationTimer viewTimer = new ViewTimer(showDescriptions);
         viewTimer.start();
 
         Pane bottomPane = new Pane();

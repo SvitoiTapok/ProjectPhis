@@ -47,7 +47,7 @@ public class ShowDescription {
     private void showAcceleration() {
         double acceleration = box.getAcceleration();
         double size = box.getWidth();
-        double startX = box.getX() + size / 2;
+        double startX = box.getOnScreenX() + size / 2;
         double startY = 400 + size / 2;
         double accelerationSign = acceleration < 0 ? -1.0 : 1.0;
 
@@ -68,9 +68,8 @@ public class ShowDescription {
 
     private void showVelocity() {
         double velocity = box.getVelocity();
-        //System.out.println(velocity);
         double size = box.getWidth();
-        double startX = box.getX() + size / 2;
+        double startX = box.getOnScreenX() + size / 2;
         double startY = 400 + size / 2;
         double velocitySign = velocity < 0 ? -1.0 : 1.0;
 
@@ -91,7 +90,7 @@ public class ShowDescription {
 
     private void showForce(double force, double scale) {
         double size = box.getWidth();
-        double startX = box.getX() + size / 2;
+        double startX = box.getOnScreenX() + size / 2;
         double startY = 400 + size / 2;
         double forceSign = force < 0 ? -1.0 : 1.0;
 

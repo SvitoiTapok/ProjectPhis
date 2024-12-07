@@ -12,13 +12,16 @@ public class CameraMover {
     private boolean movingLeft = false;
     private boolean movingRight = false;
 
-    public void moveBox(Box box) {
+    @Getter
+    private double cameraX = 0.0;
+
+    public void handleMove() {
         if (movingRight) {
-            box.setX(box.getX() + OFFSET);
+            cameraX += OFFSET;
         }
 
         if (movingLeft) {
-            box.setX(box.getX() - OFFSET);
+            cameraX -= OFFSET;
         }
     }
 }

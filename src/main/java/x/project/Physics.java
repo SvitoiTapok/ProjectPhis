@@ -1,6 +1,5 @@
 package x.project;
 
-import com.sun.security.auth.NTSidUserPrincipal;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -138,22 +137,19 @@ public class Physics {
     }
 
     public void doFrame(double deltaTime) {
-        if (deltaTime > 0) {
-            detectBoxesCollision();
+        detectBoxesCollision();
 
-            addSpringForce(deltaTime);
-            addFrictionForce(deltaTime);
+        addSpringForce(deltaTime);
+        addFrictionForce(deltaTime);
 
-            if (firstBox.isJoined()) {
-                firstBox.setAcceleration(secondBox.getAcceleration());
-                firstBox.setVelocity(secondBox.getVelocity());
-            }
+        if (firstBox.isJoined()) {
+            firstBox.setAcceleration(secondBox.getAcceleration());
+            firstBox.setVelocity(secondBox.getVelocity());
         }
 
         firstBox.move(deltaTime, SCALE_FACTOR);
         secondBox.move(deltaTime, SCALE_FACTOR);
         thirdBox.move(deltaTime, SCALE_FACTOR);
-        spring.move();
     }
 
     public double getTotalKineticEnergy() {

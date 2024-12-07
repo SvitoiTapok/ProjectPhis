@@ -20,10 +20,13 @@ public class StoppableTimer extends AnimationTimer {
         if (!stop) {
             lastTime = lastTime == 0 ? now : lastTime;
             physics.doFrame((now - lastTime) / 1.0e9);
-        } else {
-            physics.doFrame(0.0);
         }
 
+        for (Box box : physics.getBoxesList()) {
+            box.updateOnScreenPosition();
+        }
+
+        physics.getSpring().updateOnScreenPosition();
         lastTime = now;
     }
 }
