@@ -22,12 +22,9 @@ public class Spring extends SceneObject {
         updateOnScreenPosition();
     }
 
-    @Override
-    public void updateOnScreenPosition(){
+    public void updateWidth(){
         double startX = leftBox.getX() + leftBox.getWidth();
         double width = rightBox.getX() - startX;
-
         getView().setWidth(width);
-        setX(startX);
     }
 }

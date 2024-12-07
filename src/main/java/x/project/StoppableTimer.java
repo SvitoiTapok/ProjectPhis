@@ -26,7 +26,10 @@ public class StoppableTimer extends AnimationTimer {
             box.updateOnScreenPosition();
         }
 
-        physics.getSpring().updateOnScreenPosition();
+        Spring spring = physics.getSpring();
+        spring.updateWidth();
+        spring.updateOnScreenPosition();
+
         lastTime = now;
     }
 }
