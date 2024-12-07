@@ -44,7 +44,7 @@ public class Physics {
 
     @Getter
     @Setter
-    private double springConstant = 400;
+    private double springConstant = 40;
 
     private final Box firstBox = createFirstBox();
     private final Box secondBox = createSecondBox();

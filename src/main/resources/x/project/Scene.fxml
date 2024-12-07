@@ -36,7 +36,7 @@
                    <Insets left="10.0" />
                </GridPane.margin>
            </Label>
-           <TextField fx:id="kTextField" onInputMethodTextChanged="#myChange" prefHeight="25.0" prefWidth="286.0" promptText="8" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+           <TextField fx:id="kTextField" onInputMethodTextChanged="#myChange" prefHeight="25.0" prefWidth="286.0" promptText="40" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          <Label prefHeight="17.0" prefWidth="160.0" text="Значение k(Н/м^2)" GridPane.rowIndex="1">
             <GridPane.margin>
                <Insets left="10.0" />

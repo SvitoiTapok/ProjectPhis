@@ -55,9 +55,9 @@ public class Application extends javafx.application.Application {
 
         StoppableTimer stoppableTimer = new StoppableTimer(physics);
 
-        List<ShowDescription> showDescriptions = boxes.stream()
+        List<ObjectDescription> objectDescriptions = boxes.stream()
                 .map(box ->
-                        new ShowDescription(pane, box, Mode.VELOCITY)
+                        new ObjectDescription(pane, box, Mode.VELOCITY)
                 ).toList();
 
         //организация движения камеры
@@ -65,7 +65,7 @@ public class Application extends javafx.application.Application {
         CameraMover cameraMover = CameraMover.CAMERA_MOVER;
         borderPane.setOnKeyPressed(new PressHandler(cameraMover));
         borderPane.setOnKeyReleased(new ReleaseHandler(cameraMover));
-        AnimationTimer viewTimer = new ViewTimer(showDescriptions);
+        AnimationTimer viewTimer = new ViewTimer(objectDescriptions);
         viewTimer.start();
 
         Pane bottomPane = new Pane();
@@ -99,8 +99,8 @@ public class Application extends javafx.application.Application {
         comboBox.setLayoutX(790);
         comboBox.setOnAction(event -> {
             Mode value = comboBox.getValue();
-            for (ShowDescription showDescription : showDescriptions) {
-                showDescription.setMode(value);
+            for (ObjectDescription objectDescription : objectDescriptions) {
+                objectDescription.setMode(value);
             }
         });
 

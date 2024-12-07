@@ -5,19 +5,19 @@ import javafx.animation.AnimationTimer;
 import java.util.List;
 
 public class ViewTimer extends AnimationTimer {
-    private final List<ShowDescription> showDescriptions;
+    private final List<ObjectDescription> objectDescriptions;
 
-    public ViewTimer(List<ShowDescription> showDescriptions) {
-        this.showDescriptions = showDescriptions;
+    public ViewTimer(List<ObjectDescription> objectDescriptions) {
+        this.objectDescriptions = objectDescriptions;
     }
 
     @Override
     public void handle(long l) {
         CameraMover.CAMERA_MOVER.handleMove();
 
-        for (ShowDescription showDescription : showDescriptions) {
-            showDescription.hideAll();
-            showDescription.showAll();
+        for (ObjectDescription objectDescription : objectDescriptions) {
+            objectDescription.hideAll();
+            objectDescription.showAll();
         }
     }
 }
