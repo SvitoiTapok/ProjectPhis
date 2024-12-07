@@ -25,11 +25,13 @@ public class CameraMover {
         if (movingLeft) {
             cameraX -= OFFSET;
         }
+
         if (movingUp) {
-            cameraY -= OFFSET;
-        }
-        if (movingDown) {
             cameraY += OFFSET;
+        }
+
+        if (movingDown) {
+            cameraY -= OFFSET;
         }
     }
 }

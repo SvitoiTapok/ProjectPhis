@@ -2,12 +2,16 @@ package x.project;
 
 import javafx.scene.shape.Rectangle;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class SceneObject {
     private final Rectangle view;
     private double x = 0.0;
     private double y = 0.0;
+
+    @Setter
+    private boolean xUpdatable = true;
 
     SceneObject(Rectangle view, double x, double y) {
         this.view = view;
@@ -16,12 +20,25 @@ public class SceneObject {
     }
 
     public void setX(double x) {
+        if (!xUpdatable) {
+            return;
+        }
+
         this.x = x;
         view.setX(x + CameraMover.CAMERA_MOVER.getCameraX());
     }
+
     public void setY(double y) {
         this.y = y;
         view.setY(y + CameraMover.CAMERA_MOVER.getCameraY());
+    }
+
+    public double getWidth() {
+        return view.getWidth();
+    }
+
+    public double getHeight() {
+        return view.getHeight();
     }
 
     public void incrementX(double dx) {
@@ -32,8 +49,15 @@ public class SceneObject {
         return view.getX();
     }
 
+    public double getOnScreenY() {
+        return view.getY();
+    }
+
     public void updateOnScreenPosition() {
-        view.setX(x + CameraMover.CAMERA_MOVER.getCameraX());
+        if (xUpdatable) {
+            view.setX(x + CameraMover.CAMERA_MOVER.getCameraX());
+        }
+
         view.setY(y + CameraMover.CAMERA_MOVER.getCameraY());
     }
 }

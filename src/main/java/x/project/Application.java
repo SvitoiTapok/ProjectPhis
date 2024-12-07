@@ -39,21 +39,24 @@ public class Application extends javafx.application.Application {
         List<Box> boxes = physics.getBoxesList();
 
         Rectangle background = new Rectangle(0, 0, scene.getWidth(), scene.getHeight());
-        Rectangle tableSurface = new Rectangle(0, 400 + boxes.getFirst().getWidth(), scene.getWidth(), 100);
-        Rectangle tableBottom = new Rectangle(0, tableSurface.getY() + tableSurface.getHeight(), scene.getWidth(), scene.getHeight());
+
+        SceneObject tableSurface = new SceneObject(new Rectangle(0, 0, scene.getWidth(), 100), 0, 400 + boxes.getFirst().getWidth());
+        SceneObject tableBottom = new SceneObject(new Rectangle(0, 0, scene.getWidth(), scene.getHeight()), 0, tableSurface.getY() + tableSurface.getHeight());
 
         background.setFill(Color.rgb(166, 239, 255, 0.8));
-        tableSurface.setFill(Color.rgb(235, 115, 48, 1.0));
-        tableBottom.setFill(Color.rgb(199, 70, 31, 1.0));
+        tableSurface.getView().setFill(Color.rgb(235, 115, 48, 1.0));
+        tableBottom.getView().setFill(Color.rgb(199, 70, 31, 1.0));
 
         pane.getChildren().addLast(background);
-        pane.getChildren().addLast(tableSurface);
-        pane.getChildren().addLast(tableBottom);
+        pane.getChildren().addLast(tableSurface.getView());
+        pane.getChildren().addLast(tableBottom.getView());
 
         pane.getChildren().addAll(boxes.stream().map(Box::getView).toList());
         pane.getChildren().addAll(physics.getSpring().getView());
 
-        StoppableTimer stoppableTimer = new StoppableTimer(physics);
+        tableSurface.setXUpdatable(false);
+        tableBottom.setXUpdatable(false);
+        StoppableTimer stoppableTimer = new StoppableTimer(physics, List.of(tableSurface, tableBottom));
 
         List<ObjectDescription> objectDescriptions = boxes.stream()
                 .map(box ->

@@ -4,15 +4,23 @@ import javafx.animation.AnimationTimer;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 public class StoppableTimer extends AnimationTimer {
     private long lastTime = 0;
     private boolean stop = false;
     private final Physics physics;
+    private final List<SceneObject> sceneObjects = new ArrayList<>();
 
-    public StoppableTimer(Physics physics) {
+    public StoppableTimer(Physics physics, List<SceneObject> additionalSceneObjects) {
         this.physics = physics;
+
+        sceneObjects.addAll(physics.getBoxesList());
+        sceneObjects.addAll(additionalSceneObjects);
+        sceneObjects.add(physics.getSpring());
     }
 
     @Override
@@ -22,13 +30,9 @@ public class StoppableTimer extends AnimationTimer {
             physics.doFrame((now - lastTime) / 1.0e9);
         }
 
-        for (Box box : physics.getBoxesList()) {
-            box.updateOnScreenPosition();
+        for (SceneObject sceneObject : sceneObjects) {
+            sceneObject.updateOnScreenPosition();
         }
-
-        Spring spring = physics.getSpring();
-        spring.updateWidth();
-        spring.updateOnScreenPosition();
 
         lastTime = now;
     }

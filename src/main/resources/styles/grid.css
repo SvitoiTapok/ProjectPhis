@@ -1,6 +1,6 @@
 #grid {
-    -fx-background-color:  #302683;    /* Фон ячеек */
-        -fx-border-width: 1;                /* Ширина границы */
-        -fx-border-color: black;            /* Цвет границы */
-        -fx-border-style: solid;            /* Стиль границы */
+    -fx-background-color: #302683; /* Фон ячеек */
+    -fx-border-width: 1; /* Ширина границы */
+    -fx-border-color: black; /* Цвет границы */
+    -fx-border-style: solid; /* Стиль границы */
 }

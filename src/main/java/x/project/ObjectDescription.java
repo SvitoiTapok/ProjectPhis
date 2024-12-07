@@ -48,7 +48,7 @@ public class ObjectDescription {
     private void drawVector(String message, double value) {
         double size = box.getWidth();
         double startX = box.getOnScreenX() + size / 2;
-        double startY = 400 + size / 2;
+        double startY = box.getOnScreenY() + size / 2;
         double valueSign = value < 0 ? -1.0 : 1.0;
 
         text = new Text(startX - size / 2, startY - 80, message);
