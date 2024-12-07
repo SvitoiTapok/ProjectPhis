@@ -148,12 +148,11 @@ public class Physics {
                 firstBox.setAcceleration(secondBox.getAcceleration());
                 firstBox.setVelocity(secondBox.getVelocity());
             }
-
-            firstBox.move(deltaTime, SCALE_FACTOR);
-            secondBox.move(deltaTime, SCALE_FACTOR);
-            thirdBox.move(deltaTime, SCALE_FACTOR);
         }
 
+        firstBox.move(deltaTime, SCALE_FACTOR);
+        secondBox.move(deltaTime, SCALE_FACTOR);
+        thirdBox.move(deltaTime, SCALE_FACTOR);
         spring.move();
     }
 
