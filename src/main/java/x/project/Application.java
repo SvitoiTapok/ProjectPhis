@@ -87,6 +87,7 @@ public class Application extends javafx.application.Application {
         recreateButton.setOnAction(event -> {
             physics.restart();
             stoppableTimer.setStop(true);
+            CameraMover.CAMERA_MOVER.setCameraX(0.0);
         });
 
         ObservableList<Mode> modes = FXCollections.observableArrayList(Mode.VELOCITY, Mode.ACCELERATION, Mode.FRICTION_FORCE, Mode.SPRING_FORCE);

@@ -38,7 +38,7 @@ public class ShowDescription {
             switch (mode) {
                 case VELOCITY -> showVelocity();
                 case ACCELERATION -> showAcceleration();
-                case FRICTION_FORCE -> showForce(box.getFrictionForce(), 40.0 / box.getMass());
+                case FRICTION_FORCE -> showForce(box.getFrictionForce(), 1.0);
                 case SPRING_FORCE -> showForce(box.getSpringForce(), 1.0);
             }
         }
