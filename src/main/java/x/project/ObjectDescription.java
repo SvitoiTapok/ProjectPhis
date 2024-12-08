@@ -60,6 +60,10 @@ public class ObjectDescription {
         text = new Text(startX - size / 2, startY - 80, message);
         text.setFont(Font.font(12));
 
+        if (Math.abs(value) > 200) {
+            value = 200 * valueSign;
+        }
+
         center = new Circle(startX, startY, 3);
         arrow = new Line(startX, startY, startX + value, startY);
         arrowTop = new Line(startX + value, startY, startX + value - 5 * valueSign, startY - 5);
