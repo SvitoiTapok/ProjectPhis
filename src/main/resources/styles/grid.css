@@ -17,3 +17,12 @@
 .button:pressed {
     -fx-background-color: #249C17; /* Фон кнопки при нажатии */
 }
+
+.info{
+    -fx-background-color: #0CA789; /* Фон ячейки */
+    -fx-background-radius: 15px; /* Скругление уголков */
+    -fx-text-fill: white; /* Цвет текста */
+    -fx-font-size: 20px; /* Размер текста */
+    -fx-font-family: sans-serif; /* Шрифт текста  */
+    -fx-font-weight: bold; /* Жирный шрифт */
+}
