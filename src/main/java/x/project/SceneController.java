@@ -1,6 +1,5 @@
 package x.project;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -40,7 +39,7 @@ public class SceneController {
     private double mu = 0.04, k, m1, m2, m3;
 
     @FXML
-    void myChange(ActionEvent event) {
+    void myChange() {
         boolean f1 = true, f2 = true, f3 = true, f4 = true, f5 = true;
 
         try {

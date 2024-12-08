@@ -59,7 +59,7 @@
                <Insets left="10.0" />
             </GridPane.margin>
          </Label>
-         <Button mnemonicParsing="false" onAction="#myChange" prefHeight="16.0" prefWidth="179.0" text="Изменить параметры" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <Button styleClass="button" mnemonicParsing="false" onAction="#myChange" prefHeight="16.0" prefWidth="179.0" text="Изменить параметры" GridPane.columnIndex="3" GridPane.rowIndex="2">
             <GridPane.margin>
                <Insets left="-90.0" />
             </GridPane.margin>
