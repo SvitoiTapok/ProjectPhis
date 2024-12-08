@@ -71,22 +71,18 @@ public class Application extends javafx.application.Application {
         AnimationTimer viewTimer = new ViewTimer(objectDescriptions);
         viewTimer.start();
 
-        Pane bottomPane = new Pane();
-        borderPane.setBottom(bottomPane);
-        bottomPane.setPrefHeight(120);
-
         Button stopButton = new Button("Остановить/\nпродолжить");
         stopButton.getStyleClass().add("controller");
-        stopButton.setPrefWidth(400);
-        stopButton.setPrefHeight(100);
+        stopButton.setMinWidth(230);
+        stopButton.setMinHeight(100);
         stopButton.setLayoutX(30);
         stopButton.setOnAction(event -> stoppableTimer.setStop(!stoppableTimer.isStop()));
 
         Button recreateButton = new Button("Восстановить");
         recreateButton.getStyleClass().add("controller");
-        recreateButton.setPrefWidth(300);
-        recreateButton.setPrefHeight(100);
-        recreateButton.setLayoutX(460);
+        recreateButton.setMinWidth(230);
+        recreateButton.setMinHeight(100);
+        recreateButton.setLayoutX(290);
         recreateButton.setOnAction(event -> {
             physics.restart();
             stoppableTimer.setStop(true);
@@ -97,9 +93,9 @@ public class Application extends javafx.application.Application {
         ComboBox<Mode> comboBox = new ComboBox<>(modes);
         comboBox.getStyleClass().add("combo-box");
         comboBox.setValue(Mode.VELOCITY);
-        comboBox.setPrefWidth(300);
+        comboBox.setPrefWidth(230);
         comboBox.setPrefHeight(100);
-        comboBox.setLayoutX(790);
+        comboBox.setLayoutX(550);
         comboBox.setOnAction(event -> {
             Mode value = comboBox.getValue();
             for (ObjectDescription objectDescription : objectDescriptions) {
@@ -108,7 +104,6 @@ public class Application extends javafx.application.Application {
         });
 
         pane.getChildren().addAll(stopButton, recreateButton, comboBox);
-
         stage.setTitle("Project");
         stage.setWidth(1280);
         stage.setHeight(768);
