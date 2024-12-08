@@ -75,14 +75,14 @@ public class Application extends javafx.application.Application {
         borderPane.setBottom(bottomPane);
         bottomPane.setPrefHeight(120);
 
-        Button breakButton = new Button("break/continue");
-        breakButton.getStyleClass().add("controller");
-        breakButton.setPrefWidth(400);
-        breakButton.setPrefHeight(100);
-        breakButton.setLayoutX(30);
-        breakButton.setOnAction(event -> stoppableTimer.setStop(!stoppableTimer.isStop()));
+        Button stopButton = new Button("Остановить/\nпродолжить");
+        stopButton.getStyleClass().add("controller");
+        stopButton.setPrefWidth(400);
+        stopButton.setPrefHeight(100);
+        stopButton.setLayoutX(30);
+        stopButton.setOnAction(event -> stoppableTimer.setStop(!stoppableTimer.isStop()));
 
-        Button recreateButton = new Button("restart");
+        Button recreateButton = new Button("Восстановить");
         recreateButton.getStyleClass().add("controller");
         recreateButton.setPrefWidth(300);
         recreateButton.setPrefHeight(100);
@@ -107,7 +107,7 @@ public class Application extends javafx.application.Application {
             }
         });
 
-        pane.getChildren().addAll(breakButton, recreateButton, comboBox);
+        pane.getChildren().addAll(stopButton, recreateButton, comboBox);
 
         stage.setTitle("Project");
         stage.setWidth(1280);
