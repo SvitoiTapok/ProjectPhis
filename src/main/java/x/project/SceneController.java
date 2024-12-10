@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,16 +32,22 @@ public class SceneController {
     private TextField muTextField;
 
     @FXML
+    private TextField vTextField;
+
+    @FXML
     private Label changeMessage;
 
     @FXML
     private Pane pane;
 
+    @FXML
+    private GridPane gridPane;
+
     private double mu = 0.04, k, m1, m2, m3;
 
     @FXML
     void myChange() {
-        boolean f1 = true, f2 = true, f3 = true, f4 = true, f5 = true;
+        boolean f1 = true, f2 = true, f3 = true, f4 = true, f5 = true, f6=true;
 
         try {
             ParametersChanger.PARAMETERS_CHANGER.changeFrictionCoefficient(Double.parseDouble(muTextField.getText()));
@@ -75,6 +82,12 @@ public class SceneController {
             m3TextField.setPromptText(m3TextField.getText());
         } catch (Exception e) {
             f5 = false;
+        }
+        try {
+            ParametersChanger.PARAMETERS_CHANGER.changeV1(Double.parseDouble(vTextField.getText()));
+            vTextField.setPromptText(vTextField.getText());
+        } catch (Exception e) {
+            f6 = false;
         }
 
         if (!(f1 || f2 || f3 || f4 || f5)) {

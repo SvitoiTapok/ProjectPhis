@@ -33,4 +33,8 @@ public class ParametersChanger {
     public void changeM3(double m3) {
         physics.setThirdBoxDefaultMass(m3);
     }
+
+    public void changeV1(double v){ physics.setFirstBoxDefaultVelocity(v);
+
+    }
 }

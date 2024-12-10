@@ -4,10 +4,13 @@ import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -33,6 +36,7 @@ public class Application extends javafx.application.Application {
         SceneController sceneController = fxmlLoader.getController();
         Pane pane = sceneController.getPane();
         BorderPane borderPane = sceneController.getBorderPane();
+        GridPane gridPane = sceneController.getGridPane();
 
         Physics physics = new Physics();
         ParametersChanger.PARAMETERS_CHANGER.setPhysics(physics);
@@ -103,7 +107,23 @@ public class Application extends javafx.application.Application {
             }
         });
 
-        pane.getChildren().addAll(stopButton, recreateButton, comboBox);
+
+        gridPane.add(stopButton, 2, 1);
+        GridPane.setRowSpan(stopButton, 2);
+        GridPane.setColumnSpan(stopButton, 2);
+        GridPane.setHalignment(stopButton, HPos.CENTER); // Горизонтальное выравнивание
+        GridPane.setValignment(stopButton, VPos.CENTER); // Вертикальное выравнивание
+        gridPane.add(recreateButton, 4, 1);
+        GridPane.setRowSpan(recreateButton, 2);
+        GridPane.setColumnSpan(recreateButton, 2);
+        GridPane.setHalignment(recreateButton, HPos.CENTER); // Горизонтальное выравнивание
+        GridPane.setValignment(recreateButton, VPos.CENTER); // Вертикальное выравнивание
+        gridPane.add(comboBox, 6, 1);
+        GridPane.setRowSpan(comboBox, 2);
+        GridPane.setColumnSpan(comboBox, 2);
+        GridPane.setHalignment(comboBox, HPos.CENTER); // Горизонтальное выравнивание
+        GridPane.setValignment(comboBox, VPos.CENTER); // Вертикальное выравнивание
+        //pane.getChildren().addAll(stopButton, recreateButton, comboBox);
         stage.setTitle("Project");
         stage.setWidth(1280);
         stage.setHeight(768);
