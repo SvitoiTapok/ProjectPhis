@@ -14,19 +14,19 @@ public class ReleaseHandler implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent keyEvent) {
-        if(keyEvent.getCode().equals(KeyCode.D)){
+        if (keyEvent.getCode().equals(KeyCode.D)) {
             cameraMover.setMovingLeft(false);
         }
 
-        if(keyEvent.getCode().equals(KeyCode.A)){
+        if (keyEvent.getCode().equals(KeyCode.A)) {
             cameraMover.setMovingRight(false);
         }
 
-        if(keyEvent.getCode().equals(KeyCode.S)){
+        if (keyEvent.getCode().equals(KeyCode.S)) {
             cameraMover.setMovingDown(false);
         }
 
-        if(keyEvent.getCode().equals(KeyCode.W)){
+        if (keyEvent.getCode().equals(KeyCode.W)) {
             cameraMover.setMovingUp(false);
         }
     }

@@ -40,7 +40,7 @@
                </GridPane.margin>
            </Label>
            <TextField fx:id="kTextField" onInputMethodTextChanged="#myChange" prefHeight="25.0" prefWidth="286.0" promptText="40" GridPane.columnIndex="3" />
-         <Label prefHeight="17.0" prefWidth="180.0" text="k(Н/м^2)" textFill="WHITE" GridPane.columnIndex="2">
+         <Label prefHeight="17.0" prefWidth="180.0" text="k(Н/м)" textFill="WHITE" GridPane.columnIndex="2">
             <GridPane.margin>
                <Insets left="10.0" />
             </GridPane.margin>

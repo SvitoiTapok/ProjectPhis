@@ -13,9 +13,9 @@ public class StoppableTimer extends AnimationTimer {
     private long lastTime = 0;
     private boolean stop = false;
     private final Physics physics;
-    private final List<SceneObject> sceneObjects = new ArrayList<>();
+    private final List<DrawableObject> sceneObjects = new ArrayList<>();
 
-    public StoppableTimer(Physics physics, List<SceneObject> additionalSceneObjects) {
+    public StoppableTimer(Physics physics, List<DrawableObject> additionalSceneObjects) {
         this.physics = physics;
 
         sceneObjects.addAll(physics.getBoxesList());
@@ -25,15 +25,14 @@ public class StoppableTimer extends AnimationTimer {
 
     @Override
     public void handle(long now) {
+        CameraMover.CAMERA_MOVER.handleMove();
+
         if (!stop) {
             lastTime = lastTime == 0 ? now : lastTime;
             physics.doFrame((now - lastTime) / 1.0e9);
         }
 
-        for (SceneObject sceneObject : sceneObjects) {
-            sceneObject.updateOnScreenPosition();
-        }
-
+        sceneObjects.forEach(DrawableObject::draw);
         lastTime = now;
     }
 }

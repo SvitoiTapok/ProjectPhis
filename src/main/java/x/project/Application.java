@@ -1,6 +1,5 @@
 package x.project;
 
-import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +19,7 @@ import x.project.handlers.PressHandler;
 import x.project.handlers.ReleaseHandler;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,8 +44,8 @@ public class Application extends javafx.application.Application {
 
         Rectangle background = new Rectangle(0, 0, scene.getWidth(), scene.getHeight());
 
-        SceneObject tableSurface = new SceneObject(new Rectangle(0, 0, scene.getWidth(), 100), 0, 400 + boxes.getFirst().getWidth());
-        SceneObject tableBottom = new SceneObject(new Rectangle(0, 0, scene.getWidth(), scene.getHeight()), 0, tableSurface.getY() + tableSurface.getHeight());
+        PhysicalObject tableSurface = new PhysicalObject(new Rectangle(0, 0, scene.getWidth(), 100), 0, 400 + boxes.getFirst().getWidth());
+        PhysicalObject tableBottom = new PhysicalObject(new Rectangle(0, 0, scene.getWidth(), scene.getHeight()), 0, tableSurface.getY() + tableSurface.getHeight());
 
         background.setFill(Color.rgb(166, 239, 255, 0.8));
         tableSurface.getView().setFill(Color.rgb(235, 115, 48, 1.0));
@@ -60,20 +60,22 @@ public class Application extends javafx.application.Application {
 
         tableSurface.setXUpdatable(false);
         tableBottom.setXUpdatable(false);
-        StoppableTimer stoppableTimer = new StoppableTimer(physics, List.of(tableSurface, tableBottom));
-
         List<ObjectDescription> objectDescriptions = boxes.stream()
                 .map(box ->
                         new ObjectDescription(pane, box, boxes, Mode.VELOCITY)
                 ).toList();
+
+
+        List<DrawableObject> sceneObjects = new ArrayList<>(List.of(tableSurface, tableBottom));
+        sceneObjects.addAll(objectDescriptions);
+
+        StoppableTimer stoppableTimer = new StoppableTimer(physics, sceneObjects);
 
         //организация движения камеры
         borderPane.requestFocus();
         CameraMover cameraMover = CameraMover.CAMERA_MOVER;
         borderPane.setOnKeyPressed(new PressHandler(cameraMover));
         borderPane.setOnKeyReleased(new ReleaseHandler(cameraMover));
-        AnimationTimer viewTimer = new ViewTimer(objectDescriptions);
-        viewTimer.start();
 
         Button stopButton = new Button("Остановить/\nпродолжить");
         stopButton.getStyleClass().add("controller");

@@ -47,7 +47,7 @@ public class SceneController {
 
     @FXML
     void myChange() {
-        boolean f1 = true, f2 = true, f3 = true, f4 = true, f5 = true, f6=true;
+        boolean f1 = true, f2 = true, f3 = true, f4 = true, f5 = true, f6 = true;
 
         try {
             ParametersChanger.PARAMETERS_CHANGER.changeFrictionCoefficient(Double.parseDouble(muTextField.getText()));

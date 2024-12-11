@@ -10,7 +10,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-public class ObjectDescription {
+public class ObjectDescription implements DrawableObject {
     private final Box box;
     private final Pane pane;
     private Line arrow;
@@ -45,8 +45,8 @@ public class ObjectDescription {
             switch (mode) {
                 case VELOCITY -> showVelocity();
                 case ACCELERATION -> showAcceleration();
-                case FRICTION_FORCE -> showForce(box.getFrictionForce(), 150.0 / maxMass);
-                case SPRING_FORCE -> showForce(box.getSpringForce(), 1.0);
+                case FRICTION_FORCE -> showForce(box.getFrictionForce(), 75.0 / maxMass);
+                case SPRING_FORCE -> showForce(box.getSpringForce(), 75.0 / maxMass);
             }
         }
     }
@@ -93,5 +93,11 @@ public class ObjectDescription {
     public void hideAll() {
         showing = false;
         pane.getChildren().removeAll(arrow, arrowTop, arrowBottom, text, center);
+    }
+
+    @Override
+    public void draw() {
+        hideAll();
+        showAll();
     }
 }

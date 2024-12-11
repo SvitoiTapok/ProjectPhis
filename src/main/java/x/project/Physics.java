@@ -59,7 +59,7 @@ public class Physics {
     private double totalEnergyLoss = 0;
 
     @Getter
-    private double startEnergy = getTotalKineticEnergy();
+    private final double startEnergy = getTotalKineticEnergy();
 
     private Box createFirstBox() {
         Box newBox = new Box(200, 100, firstBoxDefaultMass, firstBoxDefaultVelocity, 0, new Rectangle());

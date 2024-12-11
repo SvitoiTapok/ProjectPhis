@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Box extends SceneObject {
+public class Box extends PhysicalObject {
     private double width;
     private double velocity;
     private double acceleration;

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-public class SceneObject {
+public class PhysicalObject implements DrawableObject {
     private final Rectangle view;
     private double x = 0.0;
     private double y = 0.0;
@@ -13,7 +13,7 @@ public class SceneObject {
     @Setter
     private boolean xUpdatable = true;
 
-    SceneObject(Rectangle view, double x, double y) {
+    PhysicalObject(Rectangle view, double x, double y) {
         this.view = view;
         setX(x);
         setY(y);
@@ -53,7 +53,8 @@ public class SceneObject {
         return view.getY();
     }
 
-    public void updateOnScreenPosition() {
+    @Override
+    public void draw() {
         if (xUpdatable) {
             view.setX(x + CameraMover.CAMERA_MOVER.getCameraX());
         }
