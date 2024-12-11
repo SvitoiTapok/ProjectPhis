@@ -69,7 +69,7 @@ public class Application extends javafx.application.Application {
         List<DrawableObject> sceneObjects = new ArrayList<>(List.of(tableSurface, tableBottom));
         sceneObjects.addAll(objectDescriptions);
 
-        MainAnimationTimer mainAnimationTimer = new MainAnimationTimer(physics, sceneObjects);
+        MainAnimationTimer mainAnimationTimer = new MainAnimationTimer(physics, sceneObjects, sceneController);
 
         //организация движения камеры
         borderPane.requestFocus();
@@ -79,15 +79,15 @@ public class Application extends javafx.application.Application {
 
         Button stopButton = new Button("Остановить/\nпродолжить");
         stopButton.getStyleClass().add("controller");
-        stopButton.setMinWidth(230);
-        stopButton.setMinHeight(100);
+        stopButton.setMinWidth(180);
+        stopButton.setMinHeight(80);
         stopButton.setLayoutX(30);
         stopButton.setOnAction(event -> mainAnimationTimer.setStop(!mainAnimationTimer.isStop()));
 
-        Button recreateButton = new Button("Восстановить");
+        Button recreateButton = new Button("Сбросить");
         recreateButton.getStyleClass().add("controller");
-        recreateButton.setMinWidth(230);
-        recreateButton.setMinHeight(100);
+        recreateButton.setMinWidth(180);
+        recreateButton.setMinHeight(80);
         recreateButton.setLayoutX(290);
         recreateButton.setOnAction(event -> {
             physics.restart();
@@ -99,8 +99,8 @@ public class Application extends javafx.application.Application {
         ComboBox<Mode> comboBox = new ComboBox<>(modes);
         comboBox.getStyleClass().add("combo-box");
         comboBox.setValue(Mode.VELOCITY);
-        comboBox.setPrefWidth(230);
-        comboBox.setPrefHeight(100);
+        comboBox.setPrefWidth(180);
+        comboBox.setPrefHeight(80);
         comboBox.setLayoutX(550);
         comboBox.setOnAction(event -> {
             Mode value = comboBox.getValue();

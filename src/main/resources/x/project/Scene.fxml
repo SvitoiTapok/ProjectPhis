@@ -62,15 +62,15 @@
                <Insets left="10.0" />
             </GridPane.margin>
          </Label>
-         <Button mnemonicParsing="false" onAction="#myChange" prefHeight="70.0" styleClass="button" text="Изменить " GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+         <Button mnemonicParsing="false" onAction="#myChange" prefHeight="80.0" prefWidth="180.0" styleClass="button" text="Изменить " GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
             <GridPane.margin>
-               <Insets left="20.0" />
+               <Insets />
             </GridPane.margin>
          </Button>
          <TextField fx:id="m3TextField" promptText="2" GridPane.columnIndex="11" />
-         <Label alignment="CENTER" prefHeight="70.0" styleClass="info" text="Информация об изменении:" textAlignment="RIGHT" GridPane.columnIndex="10" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+         <Label alignment="CENTER" prefHeight="30.0" prefWidth="180.0" style="-fx-font-size: 12;" styleClass="info" text="Информация об изменении:" textAlignment="RIGHT" GridPane.columnIndex="10" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
             <GridPane.margin>
-               <Insets left="20.0" />
+               <Insets />
             </GridPane.margin>
             <font>
                <Font size="9.0" />
@@ -81,6 +81,26 @@
             </GridPane.margin>
          </Label>
          <TextField fx:id="vTextField" onInputMethodTextChanged="#myChange" prefHeight="25.0" prefWidth="286.0" promptText="5" GridPane.columnIndex="5" />
+         <Label fx:id="changeMessage" alignment="CENTER" prefHeight="30.0" prefWidth="180.0" style="-fx-font-size: 10;" styleClass="info" textAlignment="RIGHT" GridPane.columnIndex="10" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <font>
+               <Font size="9.0" />
+            </font>
+         </Label>
+         <Label fx:id="energyLabel" alignment="CENTER" prefHeight="30.0" prefWidth="90.0" style="-fx-font-size: 12;" styleClass="info" text="E = " textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <font>
+               <Font size="9.0" />
+            </font>
+         </Label>
+         <Label fx:id="deltaEnergyLabel" alignment="CENTER" prefHeight="30.0" prefWidth="90.0" style="-fx-font-size: 12;" styleClass="info" text="dE = " textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <font>
+               <Font size="9.0" />
+            </font>
+         </Label>
+         <Label fx:id="tLabel" alignment="CENTER" prefHeight="80.0" prefWidth="90.0" style="-fx-font-size: 16;" styleClass="info" text="t = " textAlignment="RIGHT" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <font>
+               <Font size="9.0" />
+            </font>
+         </Label>
        </GridPane>
    </top>
    <center>

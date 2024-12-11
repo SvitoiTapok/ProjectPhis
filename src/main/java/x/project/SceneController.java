@@ -43,6 +43,16 @@ public class SceneController {
     @FXML
     private GridPane gridPane;
 
+    @FXML
+    private Label tLabel;
+
+
+    @FXML
+    private Label deltaEnergyLabel;
+
+    @FXML
+    private Label energyLabel;
+
     private double mu = 0.04, k, m1, m2, m3;
 
     @FXML
@@ -100,9 +110,11 @@ public class SceneController {
         String output = "";
         output += f1 ? "mu " : "";
         output += f2 ? "k " : "";
+        output += f6 ? "v " : "";
         output += f3 ? "m1 " : "";
         output += f4 ? "m2 " : "";
         output += f5 ? "m3 " : "";
+
         changeMessage.setText(output + "успешно изменен(ы)!");
     }
 
