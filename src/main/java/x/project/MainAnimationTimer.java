@@ -9,13 +9,13 @@ import java.util.List;
 
 @Getter
 @Setter
-public class StoppableTimer extends AnimationTimer {
+public class MainAnimationTimer extends AnimationTimer {
     private long lastTime = 0;
     private boolean stop = false;
     private final Physics physics;
     private final List<DrawableObject> sceneObjects = new ArrayList<>();
 
-    public StoppableTimer(Physics physics, List<DrawableObject> additionalSceneObjects) {
+    public MainAnimationTimer(Physics physics, List<DrawableObject> additionalSceneObjects) {
         this.physics = physics;
 
         sceneObjects.addAll(physics.getBoxesList());

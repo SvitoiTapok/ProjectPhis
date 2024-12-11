@@ -69,7 +69,7 @@ public class Application extends javafx.application.Application {
         List<DrawableObject> sceneObjects = new ArrayList<>(List.of(tableSurface, tableBottom));
         sceneObjects.addAll(objectDescriptions);
 
-        StoppableTimer stoppableTimer = new StoppableTimer(physics, sceneObjects);
+        MainAnimationTimer mainAnimationTimer = new MainAnimationTimer(physics, sceneObjects);
 
         //организация движения камеры
         borderPane.requestFocus();
@@ -82,7 +82,7 @@ public class Application extends javafx.application.Application {
         stopButton.setMinWidth(230);
         stopButton.setMinHeight(100);
         stopButton.setLayoutX(30);
-        stopButton.setOnAction(event -> stoppableTimer.setStop(!stoppableTimer.isStop()));
+        stopButton.setOnAction(event -> mainAnimationTimer.setStop(!mainAnimationTimer.isStop()));
 
         Button recreateButton = new Button("Восстановить");
         recreateButton.getStyleClass().add("controller");
@@ -91,7 +91,7 @@ public class Application extends javafx.application.Application {
         recreateButton.setLayoutX(290);
         recreateButton.setOnAction(event -> {
             physics.restart();
-            stoppableTimer.setStop(true);
+            mainAnimationTimer.setStop(true);
             CameraMover.CAMERA_MOVER.setCameraX(0.0);
         });
 
@@ -133,8 +133,8 @@ public class Application extends javafx.application.Application {
         stage.getIcons().add(new Image(getResourcePath("/images/spring.png")));
         stage.setScene(scene);
         stage.show();
-        stoppableTimer.start();
-        stoppableTimer.setStop(true);
+        mainAnimationTimer.start();
+        mainAnimationTimer.setStop(true);
     }
 
     public static void main(String[] args) {
