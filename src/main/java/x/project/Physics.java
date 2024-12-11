@@ -59,7 +59,10 @@ public class Physics {
     private double totalEnergyLoss = 0;
 
     @Getter
-    private final double startEnergy = getTotalKineticEnergy();
+    private double startEnergy = getTotalKineticEnergy();
+
+    @Getter
+    private double time = 0.0;
 
     private Box createFirstBox() {
         Box newBox = new Box(200, 100, firstBoxDefaultMass, firstBoxDefaultVelocity, 0, new Rectangle());
@@ -97,6 +100,7 @@ public class Physics {
     }
 
     public void restart() {
+        time = 0.0;
         totalEnergyLoss = 0.0;
         firstBox.setJoined(false);
 
@@ -119,6 +123,8 @@ public class Physics {
         firstBox.setPreviousVelocity(firstBoxDefaultVelocity);
         secondBox.setPreviousVelocity(secondBoxDefaultVelocity);
         thirdBox.setPreviousVelocity(thirdBoxDefaultVelocity);
+
+        startEnergy = getTotalKineticEnergy();
     }
 
     public void hotReload() {
@@ -133,6 +139,7 @@ public class Physics {
     }
 
     public void doFrame(double deltaTime) {
+        time += deltaTime;
         detectBoxesCollision();
 
         addSpringForce(deltaTime);
