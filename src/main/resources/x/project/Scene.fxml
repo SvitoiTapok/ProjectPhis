@@ -34,30 +34,30 @@
                <RowConstraints maxHeight="48.0" minHeight="1.0" prefHeight="36.0" vgrow="SOMETIMES" />
            </rowConstraints>
            <TextField fx:id="muTextField" prefHeight="25.0" prefWidth="286.0" promptText="0.04" GridPane.columnIndex="1" />
-           <Label prefHeight="17.0" prefWidth="171.0" text="mu(-)" textFill="WHITE">
+           <Label prefHeight="17.0" prefWidth="171.0" text="mu(-):" textFill="WHITE">
                <GridPane.margin>
                    <Insets left="10.0" />
                </GridPane.margin>
            </Label>
            <TextField fx:id="kTextField" onInputMethodTextChanged="#myChange" prefHeight="25.0" prefWidth="286.0" promptText="40" GridPane.columnIndex="3" />
-         <Label prefHeight="17.0" prefWidth="180.0" text="k(Н/м)" textFill="WHITE" GridPane.columnIndex="2">
+         <Label prefHeight="17.0" prefWidth="180.0" text="k(Н/м):" textFill="WHITE" GridPane.columnIndex="2">
             <GridPane.margin>
                <Insets left="10.0" />
             </GridPane.margin>
          </Label>
-         <Label prefHeight="17.0" prefWidth="170.0" text="m1(кг)" textFill="WHITE" GridPane.columnIndex="6">
+         <Label prefHeight="17.0" prefWidth="170.0" text="m1(кг):" textFill="WHITE" GridPane.columnIndex="6">
             <GridPane.margin>
                <Insets left="10.0" />
             </GridPane.margin>
          </Label>
          <TextField fx:id="m1TextField" promptText="1" GridPane.columnIndex="7" />
          <TextField fx:id="m2TextField" promptText="1" GridPane.columnIndex="9" />
-         <Label prefHeight="17.0" prefWidth="180.0" text="m2(кг)" textFill="WHITE" GridPane.columnIndex="8">
+         <Label prefHeight="17.0" prefWidth="180.0" text="m2(кг):" textFill="WHITE" GridPane.columnIndex="8">
             <GridPane.margin>
                <Insets left="10.0" />
             </GridPane.margin>
          </Label>
-         <Label prefHeight="17.0" prefWidth="166.0" text="m3(кг)" textFill="WHITE" GridPane.columnIndex="10">
+         <Label prefHeight="17.0" prefWidth="166.0" text="m3(кг):" textFill="WHITE" GridPane.columnIndex="10">
             <GridPane.margin>
                <Insets left="10.0" />
             </GridPane.margin>
@@ -75,7 +75,7 @@
             <font>
                <Font size="9.0" />
             </font></Label>
-         <Label prefHeight="17.0" prefWidth="171.0" text="v(м/c)" textFill="WHITE" GridPane.columnIndex="4">
+         <Label prefHeight="17.0" prefWidth="171.0" text="v(м/c):" textFill="WHITE" GridPane.columnIndex="4">
             <GridPane.margin>
                <Insets left="10.0" />
             </GridPane.margin>
