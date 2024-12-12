@@ -102,7 +102,7 @@ public class Physics {
     public void restart() {
         time = 0.0;
         totalEnergyLoss = 0.0;
-        firstBox.setJoined(false);
+        firstBox.setHideDescription(false);
 
         firstBox.setX(200);
         secondBox.setX(600);
@@ -128,7 +128,7 @@ public class Physics {
     }
 
     public void hotReload() {
-        if (firstBox.isJoined()) {
+        if (firstBox.isHideDescription()) {
             secondBox.setMass(firstBoxDefaultMass + secondBoxDefaultMass);
             thirdBox.setMass(thirdBoxDefaultMass);
         } else {
@@ -145,7 +145,7 @@ public class Physics {
         addSpringForce(deltaTime);
         addFrictionForce(deltaTime);
 
-        if (firstBox.isJoined()) {
+        if (firstBox.isHideDescription()) {
             firstBox.setAcceleration(secondBox.getAcceleration());
             firstBox.setVelocity(secondBox.getVelocity());
         }
@@ -169,7 +169,7 @@ public class Physics {
     }
 
     private void addSpringForce(double deltaTime) {
-        if (!firstBox.isJoined()) {
+        if (!firstBox.isHideDescription()) {
             return;
         }
 
@@ -184,7 +184,7 @@ public class Physics {
     }
 
     private void addFrictionForce(double deltaTime) {
-        if (!firstBox.isJoined()) {
+        if (!firstBox.isHideDescription()) {
             addFrictionForceForTheBox(firstBox, deltaTime);
         }
 
@@ -209,7 +209,7 @@ public class Physics {
     }
 
     private void detectBoxesCollision() {
-        if (firstBox.isJoined()) {
+        if (firstBox.isHideDescription()) {
             return;
         }
 
@@ -223,7 +223,7 @@ public class Physics {
     }
 
     private void joinBoxes() {
-        firstBox.setJoined(true);
+        firstBox.setHideDescription(true);
 
         double impulse = firstBox.getImpulse() + secondBox.getImpulse();
         double mass = firstBox.getMass() + secondBox.getMass();

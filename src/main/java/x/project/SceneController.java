@@ -60,41 +60,77 @@ public class SceneController {
         boolean f1 = true, f2 = true, f3 = true, f4 = true, f5 = true, f6 = true;
 
         try {
-            ParametersChanger.PARAMETERS_CHANGER.changeFrictionCoefficient(Double.parseDouble(muTextField.getText()));
+            double value = Double.parseDouble(muTextField.getText());
+
+            if (value < 0) {
+                throw new Exception();
+            }
+
+            ParametersChanger.PARAMETERS_CHANGER.changeFrictionCoefficient(value);
             muTextField.setPromptText(muTextField.getText());
         } catch (Exception ignored) {
             f1 = false;
         }
 
         try {
-            ParametersChanger.PARAMETERS_CHANGER.changeSpringCoefficient(Double.parseDouble(kTextField.getText()));
+            double value = Double.parseDouble(kTextField.getText());
+
+            if (value <= 0) {
+                throw new Exception();
+            }
+
+            ParametersChanger.PARAMETERS_CHANGER.changeSpringCoefficient(value);
             kTextField.setPromptText(kTextField.getText());
         } catch (Exception ignored) {
             f2 = false;
         }
 
         try {
-            ParametersChanger.PARAMETERS_CHANGER.changeM1(Double.parseDouble(m1TextField.getText()));
+            double value = Double.parseDouble(m1TextField.getText());
+
+            if (value <= 0) {
+                throw new Exception();
+            }
+
+            ParametersChanger.PARAMETERS_CHANGER.changeM1(value);
             m1TextField.setPromptText(m1TextField.getText());
         } catch (Exception ignored) {
             f3 = false;
         }
 
         try {
-            ParametersChanger.PARAMETERS_CHANGER.changeM2(Double.parseDouble(m2TextField.getText()));
+            double value = Double.parseDouble(m2TextField.getText());
+
+            if (value <= 0) {
+                throw new Exception();
+            }
+
+            ParametersChanger.PARAMETERS_CHANGER.changeM2(value);
             m2TextField.setPromptText(m2TextField.getText());
         } catch (Exception ignored) {
             f4 = false;
         }
 
         try {
-            ParametersChanger.PARAMETERS_CHANGER.changeM3(Double.parseDouble(m3TextField.getText()));
+            double value = Double.parseDouble(m3TextField.getText());
+
+            if (value <= 0) {
+                throw new Exception();
+            }
+
+            ParametersChanger.PARAMETERS_CHANGER.changeM3(value);
             m3TextField.setPromptText(m3TextField.getText());
         } catch (Exception e) {
             f5 = false;
         }
         try {
-            ParametersChanger.PARAMETERS_CHANGER.changeV1(Double.parseDouble(vTextField.getText()));
+            double value = Double.parseDouble(vTextField.getText());
+
+            if (value <= 0) {
+                throw new Exception();
+            }
+
+            ParametersChanger.PARAMETERS_CHANGER.changeV1(value);
             vTextField.setPromptText(vTextField.getText());
         } catch (Exception e) {
             f6 = false;

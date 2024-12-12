@@ -60,11 +60,15 @@ public class Application extends javafx.application.Application {
 
         tableSurface.setXUpdatable(false);
         tableBottom.setXUpdatable(false);
-        List<ObjectDescription> objectDescriptions = boxes.stream()
+
+        List<ObjectDescription> objectDescriptions = new ArrayList<>();
+
+        objectDescriptions.addAll(boxes.stream()
                 .map(box ->
                         new ObjectDescription(pane, box, boxes, Mode.VELOCITY)
-                ).toList();
+                ).toList());
 
+        objectDescriptions.addLast(new ObjectDescription(pane, physics.getSpring(), boxes, Mode.FRICTION_FORCE));
 
         List<DrawableObject> sceneObjects = new ArrayList<>(List.of(tableSurface, tableBottom));
         sceneObjects.addAll(objectDescriptions);

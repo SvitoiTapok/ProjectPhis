@@ -14,7 +14,6 @@ public class Box extends PhysicalObject {
     private double previousVelocity;
     private double frictionForce = 0.0;
     private double springForce = 0.0;
-    private boolean joined = false;
 
     public Box(double x, double size, double mass, double velocity, double acceleration, Rectangle view) {
         super(view, x, 400);

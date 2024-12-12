@@ -10,6 +10,10 @@ public class PhysicalObject implements DrawableObject {
     private double x = 0.0;
     private double y = 0.0;
 
+    @Getter
+    @Setter
+    private boolean hideDescription = false;
+
     @Setter
     private boolean xUpdatable = true;
 

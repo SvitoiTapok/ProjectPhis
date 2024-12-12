@@ -35,9 +35,10 @@ public class MainAnimationTimer extends AnimationTimer {
 
         sceneObjects.forEach(DrawableObject::draw);
         lastTime = now;
-        sceneController.getTLabel().setText(String.format("t = %.2fс", physics.getTime()));
-        sceneController.getEnergyLabel().setText(String.format("E = %.2fДж", physics.getTotalEnergy()));
-        sceneController.getDeltaEnergyLabel().setText(String.format("dE = %.2fДж", physics.getStartEnergy()-physics.getTotalEnergy()-physics.getTotalEnergyLoss()));
+
+        sceneController.getTLabel().setText("t = %.2fс".formatted(physics.getTime()));
+        sceneController.getEnergyLabel().setText("E = %.2fДж".formatted(physics.getTotalEnergy()));
+        sceneController.getDeltaEnergyLabel().setText("dE = %.2fДж".formatted(physics.getStartEnergy() - physics.getTotalEnergy() - physics.getTotalEnergyLoss()));
     }
 }
 

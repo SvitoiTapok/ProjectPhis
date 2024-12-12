@@ -11,7 +11,7 @@ import lombok.Setter;
 import java.util.List;
 
 public class ObjectDescription implements DrawableObject {
-    private final Box box;
+    private final PhysicalObject physicalObject;
     private final Pane pane;
     private Line arrow;
     private Line arrowTop;
@@ -25,9 +25,9 @@ public class ObjectDescription implements DrawableObject {
     @Setter
     private Mode mode;
 
-    public ObjectDescription(Pane pane, Box box, List<Box> boxesList, Mode mode) {
+    public ObjectDescription(Pane pane, PhysicalObject physicalObject, List<Box> boxesList, Mode mode) {
         this.pane = pane;
-        this.box = box;
+        this.physicalObject = physicalObject;
         this.boxesList = boxesList;
         this.mode = mode;
     }
@@ -36,25 +36,38 @@ public class ObjectDescription implements DrawableObject {
         if (!showing) {
             showing = true;
 
-            if (box.isJoined()) {
+            if (physicalObject.isHideDescription()) {
                 return;
             }
 
             double maxMass = boxesList.stream().map(Box::getMass).max(Double::compareTo).orElse(1.0);
 
-            switch (mode) {
-                case VELOCITY -> showVelocity();
-                case ACCELERATION -> showAcceleration();
-                case FRICTION_FORCE -> showForce(box.getFrictionForce(), 75.0 / maxMass);
-                case SPRING_FORCE -> showForce(box.getSpringForce(), 75.0 / maxMass);
+            if (physicalObject instanceof Box box) {
+                switch (mode) {
+                    case VELOCITY -> showVelocity();
+                    case ACCELERATION -> showAcceleration();
+                    case FRICTION_FORCE -> showForce(box.getFrictionForce(), 75.0 / maxMass);
+                    case SPRING_FORCE -> showForce(box.getSpringForce(), 75.0 / maxMass);
+                }
+            } else if (physicalObject instanceof Spring spring) {
+                Box leftBox = spring.getLeftBox();
+                Box rightBox = spring.getRightBox();
+                double size = spring.getWidth() + leftBox.getWidth();
+                double startY = leftBox.getOnScreenY() + leftBox.getWidth() / 2;
+
+                double dotCenter = leftBox.getOnScreenX() + leftBox.getWidth() / 2 + size * rightBox.getMass() / (leftBox.getMass() + rightBox.getMass());
+                center = new Circle(dotCenter, startY, 4);
+                center.setFill(javafx.scene.paint.Color.RED);
+
+                pane.getChildren().addAll(center);
             }
         }
     }
 
     private void drawVector(String message, double value) {
-        double size = box.getWidth();
-        double startX = box.getOnScreenX() + size / 2;
-        double startY = box.getOnScreenY() + size / 2;
+        double size = physicalObject.getWidth();
+        double startX = physicalObject.getOnScreenX() + size / 2;
+        double startY = physicalObject.getOnScreenY() + size / 2;
         double valueSign = value < 0 ? -1.0 : 1.0;
 
         text = new Text(startX - size / 2, startY - 80, message);
@@ -77,13 +90,17 @@ public class ObjectDescription implements DrawableObject {
     }
 
     private void showAcceleration() {
-        double acceleration = box.getAcceleration();
-        drawVector(String.format("a = %.2f м/с^2", acceleration), acceleration * 20.0);
+        if (physicalObject instanceof Box box) {
+            double acceleration = box.getAcceleration();
+            drawVector(String.format("a = %.2f м/с^2", acceleration), acceleration * 20.0);
+        }
     }
 
     private void showVelocity() {
-        double velocity = box.getVelocity();
-        drawVector(String.format("v = %.2f м/с", velocity), velocity * 20.0);
+        if (physicalObject instanceof Box box) {
+            double velocity = box.getVelocity();
+            drawVector(String.format("v = %.2f м/с", velocity), velocity * 20.0);
+        }
     }
 
     private void showForce(double force, double scale) {
